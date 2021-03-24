@@ -22,7 +22,7 @@ const exitHandler = async () => {
 
 const exceptionHandler = (error) => {
   console.error(error)
-  exitHandler()
+  // exitHandler()
 }
 
 process.on("uncaughtException", exceptionHandler)

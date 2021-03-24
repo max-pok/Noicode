@@ -3,9 +3,10 @@ import axios from "axios"
 import { encrypt } from "../../../utils/crypto"
 import { Form, Input, Button, Checkbox, Card, Alert } from "antd"
 import { MailOutlined, LockOutlined } from "@ant-design/icons"
+import PropTypes from "prop-types"
 import "./login.css"
 
-const Login = () => {
+const Login = ({ saveToken }) => {
   const loginUrl = "http://localhost:8080/auth/login"
 
   const [visibleAlert, setVisibleAlert] = useState(false)
@@ -21,16 +22,14 @@ const Login = () => {
     axios
       .post(loginUrl, encryptedValues)
       .then((response) => {
-        console.log(response)
         setIsLoading(false)
+        saveToken(response.data.token)
       })
-      .catch((error) => {
+      .catch(() => {
         setIsLoading(false)
+        setVisibleAlert(true)
       })
   }
-
-  // TODO: add remember me functionality on successful login.
-  const saveLogin = (email, password) => {}
 
   const handleCloseAlert = () => {
     setVisibleAlert(false)

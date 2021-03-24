@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const { decrypt } = require("../utils/crypto")
 
 const userSchema = mongoose.Schema({
   email: {
@@ -15,5 +16,4 @@ const userSchema = mongoose.Schema({
 })
 
 const User = mongoose.model("Users", userSchema)
-
 module.exports = User

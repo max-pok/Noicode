@@ -6,14 +6,13 @@ class AuthRepository {
 
   async findUser(email, password) {
     const user = await User.findOne({ email: decrypt(email) })
-    if (user && this.isValid(password, user.password)) {
-      return true
+    if (!user || !this.isPasswordValid(password, user.password)) {
+      return null
     }
-
-    return false
+    return user
   }
 
-  isValid(inputPassword, savedPassword) {
+  isPasswordValid(inputPassword, savedPassword) {
     return decrypt(inputPassword) == decrypt(savedPassword)
   }
 }
