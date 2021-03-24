@@ -3,9 +3,10 @@ import axios from "axios"
 import { encrypt } from "../../../utils/crypto"
 import { Form, Input, Button, Checkbox, Card, Alert } from "antd"
 import { MailOutlined, LockOutlined } from "@ant-design/icons"
+import PropTypes from "prop-types"
 import "./login.css"
 
-const Login = () => {
+const Login = ({ saveToken }) => {
   const loginUrl = "http://localhost:8080/auth/login"
 
   const [visibleAlert, setVisibleAlert] = useState(false)
@@ -19,17 +20,16 @@ const Login = () => {
 
     // send encrypted login information to server.
     axios
-      .post(loginUrl, encryptedValues, null)
+      .post(loginUrl, encryptedValues)
       .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
         setIsLoading(false)
+        saveToken(response.data.token)
+      })
+      .catch(() => {
+        setIsLoading(false)
+        setVisibleAlert(true)
       })
   }
-
-  // TODO: add remember me functionality on successful login.
-  const saveLogin = (email, password) => {}
 
   const handleCloseAlert = () => {
     setVisibleAlert(false)
@@ -44,6 +44,7 @@ const Login = () => {
 
         <Form.Item
           name='email'
+          initialValue='maxim.p9@gmail.com'
           rules={[
             { required: true, message: "Please enter your e-mail address!" },
             { type: "email", message: "Please enter a valid e-mail!", validateTrigger: ["onFinish"] },
@@ -52,7 +53,7 @@ const Login = () => {
           <Input className='input' prefix={<MailOutlined />} size='large' placeholder='E-mail' />
         </Form.Item>
 
-        <Form.Item name='password' rules={[{ required: true, message: "Please enter your password!" }]}>
+        <Form.Item name='password' initialValue='123456' rules={[{ required: true, message: "Please enter your password!" }]}>
           <Input className='input' prefix={<LockOutlined />} size='large' type='password' placeholder='Password' />
         </Form.Item>
 
