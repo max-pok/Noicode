@@ -1,33 +1,32 @@
-const express = require('express')
+const express = require('express');
 const mongoose = require('mongoose');
-const mongoose_config = require('./config/mongoose')
+const mongoose_config = require('./config/mongoose');
 
-const app = express()
+const app = express();
 
 const PORT = process.env.PORT || 8080;
 
-let server; 
+let server;
 mongoose.connect(mongoose_config.url, mongoose_config.options).then(() => {
-    console.log('Connected to database.');
-    server = app.listen(PORT, () => {
-        console.log(`Server is listening on port ${PORT}.`);
-    })
+  console.log('Connected to database.');
+  server = app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}.`);
+  });
 });
 
 const exitHandler = async () => {
-    await mongoose.connection.close();
-    console.log("Disconnected from database.");
-    if (server) { 
-        server.close(() => console.log(("Server closed.")));
-    }
-}
+  await mongoose.connection.close();
+  console.log('Disconnected from database.');
+  if (server) {
+    server.close(() => console.log('Server closed.'));
+  }
+};
 
 const exceptionHandler = (error) => {
-    console.error(error)
-    exitHandler();
-}
+  console.error(error);
+  exitHandler();
+};
 
 process.on('uncaughtException', exceptionHandler);
-process.on('unhandledRejection',  exceptionHandler);
+process.on('unhandledRejection', exceptionHandler);
 process.on('SIGINT', exitHandler);
-
