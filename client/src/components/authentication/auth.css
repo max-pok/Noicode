@@ -1,0 +1,21 @@
+.combined-pages{
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    justify-content: space-around;
+}
+
+#register-page, #login-page{
+    width: 100%;
+}
+
+.divider{
+    background: red;
+}
+
+@media(max-width: 900px){
+    .combined-pages{
+        flex-direction: column;
+        justify-content: center;
+    }
+}
