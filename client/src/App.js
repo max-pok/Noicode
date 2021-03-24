@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Login from "./components/authentication/login/login"
+import Register from './components/authentication/register/register';
 import Home from "./components/home/home"
 import "./App.css"
 
@@ -20,4 +21,4 @@ function App() {
   return <div className='App'>{!token ? <Login saveToken={saveToken} /> : <Home />}</div>
 }
 
-export default App
+export default App;
