@@ -1,21 +1,28 @@
-.combined-pages{
-    display: flex;
-    flex-direction: row;
-    align-content: stretch;
-    justify-content: space-around;
+.combined-pages {
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
+  justify-content: space-around;
 }
 
-#register-page, #login-page{
-    width: 100%;
+#register-page,
+#login-page {
+  width: 100%;
 }
 
-.divider{
-    background: red;
+.divider {
+  border-color: rgb(49, 49, 49);
+  height: 100vh;
+  border-width: 1px;
 }
 
-@media(max-width: 900px){
-    .combined-pages{
-        flex-direction: column;
-        justify-content: center;
-    }
+@media (max-width: 900px) {
+  .combined-pages {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .divider {
+    height: auto;
+    width: 100vh;
+  }
 }
