@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Login from "./components/authentication/login/login"
 import Register from './components/authentication/register/register';
+import Auth from './components/authentication/auth'
 import Home from "./components/home/home"
 import "./App.css"
 
@@ -18,7 +19,7 @@ function App() {
     setToken(userToken)
   }
 
-  return <div className='App'>{!token ? <Login saveToken={saveToken} /> : <Home />}</div>
+  return <div className='App'>{!token ? <Auth saveToken={saveToken} /> : <Home />}</div>
 }
 
 export default App;
