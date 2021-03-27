@@ -3,7 +3,6 @@ import axios from "axios"
 import { encrypt } from "../../../utils/crypto"
 import { Form, Input, Button, Checkbox, Card, Alert } from "antd"
 import { MailOutlined, LockOutlined } from "@ant-design/icons"
-import PropTypes from "prop-types"
 import "./login.css"
 
 const Login = ({ saveToken }) => {
