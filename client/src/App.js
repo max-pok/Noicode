@@ -1,25 +1,42 @@
-import { useState } from "react"
-import Login from "./components/authentication/login/login"
-import Register from './components/authentication/register/register';
-import Auth from './components/authentication/auth'
+import { useState, useEffect } from "react"
+import Auth from "./components/authentication/auth"
 import Home from "./components/home/home"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import "./App.css"
 
 function App() {
   const getToken = () => {
-    const tokenString = sessionStorage.getItem("token")
-    // const userToken = JSON.parse(tokenString)
-    return tokenString
+    return localStorage.getItem("token")
   }
 
   const [token, setToken] = useState(getToken())
 
-  const saveToken = (userToken) => {
-    sessionStorage.setItem("token", userToken)
-    setToken(userToken)
+  const saveToken = (token) => {
+    localStorage.setItem("token", token)
+    setToken(token)
   }
 
-  return <div className='App'>{!token ? <Auth saveToken={saveToken} /> : <Home />}</div>
+  // this will run when the localStorage is changed.
+  // window.addEventListener("storage", function (e) {
+  // })
+
+  return (
+    <div className='App'>
+      <Router>
+        <Switch>
+          <Route exact path='/auth'>
+            {token ? <Redirect to='/home' /> : <Auth saveToken={saveToken} />}
+          </Route>
+          <Route path='/home'>
+            <Home />
+          </Route>
+          <Route path='/'>
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  )
 }
 
-export default App;
+export default App

@@ -1,5 +1,5 @@
 const AuthRepository = require("../repositories/auth.repository")
-const generateAccessToken = require("../utils/token")
+const { generateAuthToken } = require("../utils/token")
 const authRepository = new AuthRepository()
 
 /**
@@ -10,8 +10,8 @@ const login = async (req, res) => {
   if (!user) {
     res.status(400).send("No such user.")
   } else {
-    const token = await generateAccessToken({ email: req.body.email })
-    res.send({ user, token })
+    const token = await generateAuthToken(user)
+    res.send({ token })
   }
 }
 

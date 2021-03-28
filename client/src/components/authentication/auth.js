@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import Login from "./login/login"
 import Register from "./register/register"
 import { Divider } from "antd"
 import "./auth.css"
 
-function Auth() {
+function Auth({ saveToken }) {
   const handlePageSwitch = (element) => {
     const loginPage = document.getElementById("login-page")
     const registerPage = document.getElementById("register-page")
@@ -22,7 +22,7 @@ function Auth() {
   return (
     <div className='combined-pages'>
       <div id='login-page' onClick={() => handlePageSwitch("login")}>
-        <Login />
+        <Login saveToken={saveToken} />
       </div>
       <Divider className='divider' type={window.innerWidth > 900 ? "vertical" : "horizontal"} />
       <div id='register-page' onClick={() => handlePageSwitch("register")}>
