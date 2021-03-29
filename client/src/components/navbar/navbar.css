@@ -35,10 +35,43 @@
   font-size: large;
 }
 
+.alert-icon {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .alert-icon:hover {
   color: rgb(15, 117, 201);
 }
 
 .d-flex {
-  padding-right: 40px;
+  padding-right: 80px;
+}
+
+.popover-bg {
+  background-color: #0d1117;
+}
+
+.popover-bg-profile {
+  background-color: #0d1117;
+  width: 200px;
+  box-shadow: 4px 2px 4px 4px rgba(0, 0, 0.1, 0.3);
+  border-width: 2px;
+}
+
+.popover-bg-alert {
+  background-color: #0d1117;
+  box-shadow: 4px 2px 4px 4px rgba(0, 0, 0.1, 0.3);
+  border-width: 2px;
+}
+
+.popover-bg-profile.item {
+  text-align: right;
+}
+
+.dropdown {
+  cursor: pointer;
+}
+
+.item {
+  text-align: left;
 }

@@ -1,10 +1,54 @@
 import "./navbar.css"
 import { NavLink } from "react-router-dom"
-import { Input, Typography, Avatar } from "antd"
-import { BellOutlined, AntDesignOutlined } from "@ant-design/icons"
+import { Input, Avatar, Dropdown, Menu, Switch, Popover, Divider, Badge } from "antd"
+import { BellOutlined, SettingOutlined, PoweroffOutlined, UserOutlined, BgColorsOutlined } from "@ant-design/icons"
 
 const { Search } = Input
-const { Title } = Typography
+
+const alert = (
+  <Menu className='popover-bg-alert'>
+    <Menu.Item>Clicking me will not close the menu.</Menu.Item>
+    <Menu.Divider></Menu.Divider>
+    <Menu.Item key='2'>Clicking me will not close the menu also.</Menu.Item>
+    <Menu.Divider></Menu.Divider>
+    <Menu.Item key='3'>Clicking me will close the menu.</Menu.Item>
+  </Menu>
+)
+
+const profile = (
+  <Menu className='popover-bg-profile'>
+    {/* <Menu.Item icon={<BgColorsOutlined style={{ fontSize: "20px" }} />} className='item'>
+      {" "}
+      Mode
+    </Menu.Item>
+    <Menu.Divider></Menu.Divider> */}
+    <Menu.Item icon={<UserOutlined style={{ fontSize: "20px" }} />} className='item'>
+      {" "}
+      Profile
+    </Menu.Item>
+    <Menu.Divider></Menu.Divider>
+    <Menu.Item icon={<SettingOutlined style={{ fontSize: "20px" }} />} className='item'>
+      <NavLink to='/setting' exact>
+        {" "}
+        Settings
+      </NavLink>
+    </Menu.Item>
+    <Menu.Divider></Menu.Divider>
+    <Menu.Item icon={<PoweroffOutlined style={{ fontSize: "20px" }} />} className='item'>
+      <NavLink to='/auth' exact>
+        {" "}
+        Login
+      </NavLink>
+    </Menu.Item>
+  </Menu>
+)
+
+const content = (
+  <div>
+    <a>Content</a> <br /> <br />
+    <a>Content</a>
+  </div>
+)
 
 const Navbar = () => {
   const onSearch = (value) => console.log(value)
@@ -32,15 +76,23 @@ const Navbar = () => {
               About
             </NavLink>
           </li>
-          <li className='nav-item'>
-            <Search placeholder='Search...' allowClear onSearch={onSearch} size='large' style={{ paddingTop: "2px", paddingLeft: "60px" }} />
-          </li>
+          <li className='nav-item'>{/* <Search className='nav-search' placeholder='Search...' allowClear onSearch={onSearch} size='medium' style={{ paddingTop: "6px", paddingLeft: "60px" }} /> */}</li>
         </ul>
         <form className='d-flex'>
-          <BellOutlined className='alert-icon' style={{ fontSize: "22px" }} />
+          <Search className='nav-search' placeholder='Search...' allowClear onSearch={onSearch} size='medium' />
         </form>
         <form className='d-flex'>
-          <Avatar>U</Avatar>
+          <Dropdown overlay={alert} className='dropdown'>
+            <Badge count={5}>
+              <BellOutlined className='alert-icon' style={{ fontSize: "24px", paddingTop: "4px" }} />
+            </Badge>
+          </Dropdown>
+        </form>
+
+        <form className='d-flex'>
+          <Dropdown overlay={profile} className='dropdown'>
+            <Avatar>M</Avatar>
+          </Dropdown>
         </form>
       </div>
     </nav>
