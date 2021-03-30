@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Auth from "./components/authentication/auth"
 import Home from "./components/home/home"
-import Navbar from "./components/navbar/navbar"
+import Navigation from "./components/navbar/navbar"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import "./App.css"
 
@@ -24,7 +24,7 @@ function App() {
   return (
     <div className='App'>
       <Router>
-        <Navbar />
+        <Navigation token={token} setToken={setToken} />
         <Switch>
           <Route path='/auth' exact>
             {token ? <Redirect to='/home' /> : <Auth saveToken={saveToken} />}

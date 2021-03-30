@@ -12,7 +12,7 @@
 
 .navbar-main-bg {
   background-color: #0d1117;
-  padding: 0px;
+  /* padding: 0px; */
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0.1, 0.3);
 }
 
@@ -27,12 +27,14 @@
   width: 80px;
 }
 
-.nav-link:hover {
+.nav-item {
+  font-size: large;
   color: rgb(15, 117, 201);
 }
 
-.nav-item {
+.nav-item:hover {
   font-size: large;
+  color: rgb(15, 117, 201);
 }
 
 .alert-icon {
@@ -40,7 +42,7 @@
 }
 
 .alert-icon:hover {
-  color: rgb(15, 117, 201);
+  color: rgb(233, 233, 233);
 }
 
 .d-flex {
@@ -68,10 +70,51 @@
   text-align: right;
 }
 
+.popover-bg-alert.item {
+  text-align: right;
+}
+
 .dropdown {
   cursor: pointer;
 }
 
 .item {
   text-align: left;
+}
+
+.last-item {
+  text-align: center;
+}
+
+.menu-header {
+  padding-left: 10px;
+}
+
+.notification-date {
+  text-align: right;
+  font-size: small;
+  color: gray;
+}
+
+.notification-by-who {
+  color: rgb(123, 199, 218);
+  font-size: medium;
+}
+
+.nav-right {
+  text-align: right;
+}
+
+@media only screen and (max-width: 991px) {
+  .nav-search {
+    margin-left: 50px;
+    width: auto;
+    float: left;
+  }
+
+  .nav-info {
+    margin-left: 50px;
+    margin-top: 20px;
+    float: left;
+  }
 }
