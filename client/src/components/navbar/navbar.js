@@ -60,9 +60,9 @@ const Navigation = (props) => {
         </div>
       </nav> */}
 
-      <Navbar collapseOnSelect expand='lg' variant='dark' fixed='top' className='navbar-main-bg'>
+      <Navbar collapseOnSelect expand='lg' variant='dark' className='navbar-main-bg'>
         <Navbar.Brand className='navbar-brand navbar-logo'>{"{ Noicode }"}</Navbar.Brand>
-        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+        <Navbar.Toggle aria-controls='responsive-navbar-nav' style={{ marginRight: "40px" }} />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
             <Nav.Link className='nav-item' href='/home'>
