@@ -65,8 +65,12 @@ const Navigation = (props) => {
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
-            <Nav.Link className='nav-item'>Home</Nav.Link>
-            <Nav.Link className='nav-item'>About</Nav.Link>
+            <Nav.Link className='nav-item' href='/home'>
+              Home
+            </Nav.Link>
+            <Nav.Link className='nav-item' href='/about'>
+              About
+            </Nav.Link>
           </Nav>
           <Nav className='justify-content-end' style={{ width: "100%" }}>
             <Nav.Item className='d-flex'>
