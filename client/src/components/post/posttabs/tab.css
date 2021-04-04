@@ -12,15 +12,11 @@
   text-align: center;
 }
 
-.label {
-  border: 5px solid red;
-  pointer-events: none;
-}
 .icon {
   color: gray;
 
   transition: all 0.2s ease;
 }
-.tab:hover .icon:hover {
+.tab:hover .icon {
   color: white;
 }
