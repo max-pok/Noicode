@@ -1,22 +1,27 @@
+:root {
+  --clr-bg-primary: #2b3648;
+  --clr-text: #708da2;
+  --clr-hover: rgba(255, 255, 255);
+}
+
 .tab {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-self: center;
-  background-color: #2b3648;
+  background-color: var(--clr-bg-primary);
   border-radius: 20px;
   height: 2em;
   width: 100px;
-  gap: 5px;
+  gap: 3px;
   cursor: pointer;
-  text-align: center;
+  color: var(--clr-text);
 }
 
 .icon {
-  color: gray;
-
-  transition: all 0.2s ease;
+  transition: all 0.4s ease;
 }
+
 .tab:hover .icon {
-  color: white;
+  color: var(--clr-hover);
 }

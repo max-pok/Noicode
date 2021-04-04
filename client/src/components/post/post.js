@@ -1,4 +1,4 @@
-import { Form, Input, Divider } from 'antd';
+import { Form, Input, Divider, Button } from 'antd';
 import { CameraOutlined, LinkOutlined, FileGifOutlined } from '@ant-design/icons';
 
 import './post.css';
@@ -25,6 +25,12 @@ const Post = () => {
         <Tab icon={<CameraOutlined />} name={'Photo'} />
         <Tab icon={<LinkOutlined />} name={'Share link'} />
         <Tab icon={<FileGifOutlined />} name={'Post GIF'} />
+      </div>
+      <Divider />
+      <div className='post-bottom'>
+        <Button className='publish-post-btn' type='primary' block style={{ borderRadius: '5px' }}>
+          {'Publish'}
+        </Button>
       </div>
     </div>
   );
