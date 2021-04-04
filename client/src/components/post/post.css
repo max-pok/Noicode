@@ -1,12 +1,18 @@
-.post-holder {
+.main-container {
   width: 30%;
+  border: 1px solid #131820;
+  border-radius: 5px;
+  background-color: #202836;
+}
+
+.post-holder {
+  width: 100%;
   min-height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   border-radius: 5px;
-  border: 1px solid white;
   gap: 5%;
 }
 
@@ -24,4 +30,14 @@
   max-height: 100%;
   background-clip: padding-box;
   border-radius: 50%;
+}
+
+.tabs-holder {
+  display: flex;
+  flex-direction: row;
+  min-height: 3em;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-bottom: 20px;
+  padding-left: 40px;
 }
