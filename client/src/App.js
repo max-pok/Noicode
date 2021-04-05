@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Auth from "./components/authentication/auth"
 import Home from "./components/home/home"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"

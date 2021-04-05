@@ -14,3 +14,8 @@
 .avatar-pic {
   box-shadow: 4px 0px 8px 1px rgba(0, 0, 0.1, 0.3);
 }
+
+.cover-pic {
+  object-fit: cover;
+  height: 400px;
+}
