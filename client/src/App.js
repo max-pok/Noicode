@@ -3,6 +3,7 @@ import Auth from "./components/authentication/auth"
 import Home from "./components/home/home"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import "./App.css"
+import Profile from "./components/profile/profile"
 
 function App() {
   const getToken = () => {
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path='/home'>
             <Home />
+          </Route>
+          <Route exact path='/profile'>
+            <Profile />
           </Route>
           <Route path='/'>
             <Home />
