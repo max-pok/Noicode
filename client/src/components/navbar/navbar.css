@@ -1,0 +1,120 @@
+.navbar-logo {
+  padding: 15px;
+  color: #fff;
+  pointer-events: none;
+  margin-left: 40px;
+}
+
+.navbar-logo:hover {
+  color: black;
+  background-color: #fff;
+}
+
+.navbar-main-bg {
+  background-color: #0d1117;
+  /* padding: 0px; */
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0.1, 0.3);
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.7);
+  margin-left: 40px;
+  border-radius: 5px;
+  width: 80px;
+}
+
+.nav-item {
+  font-size: large;
+  color: rgb(15, 117, 201);
+}
+
+.nav-item:hover {
+  font-size: large;
+  color: rgb(15, 117, 201);
+}
+
+.alert-icon {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.alert-icon:hover {
+  color: rgb(233, 233, 233);
+}
+
+.d-flex {
+  padding-right: 80px;
+}
+
+.popover-bg {
+  background-color: #0d1117;
+}
+
+.popover-bg-profile {
+  background-color: #0d1117;
+  width: 200px;
+  box-shadow: 4px 2px 4px 4px rgba(0, 0, 0.1, 0.3);
+  border-width: 2px;
+}
+
+.popover-bg-alert {
+  background-color: #0d1117;
+  box-shadow: 4px 2px 4px 4px rgba(0, 0, 0.1, 0.3);
+  border-width: 2px;
+}
+
+.popover-bg-profile.item {
+  text-align: right;
+}
+
+.popover-bg-alert.item {
+  text-align: right;
+}
+
+.dropdown {
+  cursor: pointer;
+}
+
+.item {
+  text-align: left;
+}
+
+.last-item {
+  text-align: center;
+}
+
+.menu-header {
+  padding-left: 10px;
+}
+
+.notification-date {
+  text-align: right;
+  font-size: small;
+  color: gray;
+}
+
+.notification-by-who {
+  color: rgb(123, 199, 218);
+  font-size: medium;
+}
+
+.nav-right {
+  text-align: right;
+}
+
+@media only screen and (max-width: 991px) {
+  .nav-search {
+    margin-left: 50px;
+    width: auto;
+    float: left;
+  }
+
+  .nav-info {
+    margin-left: 50px;
+    margin-top: 20px;
+    float: left;
+  }
+}
