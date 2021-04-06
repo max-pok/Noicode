@@ -4,6 +4,9 @@ import { MessageOutlined, LikeOutlined } from "@ant-design/icons"
 
 const { Text } = Typography
 
+/**
+ * Temporary function.
+ */
 function randomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
 }

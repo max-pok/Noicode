@@ -13,9 +13,12 @@
 
 .avatar-pic {
   box-shadow: 4px 0px 8px 1px rgba(0, 0, 0.1, 0.3);
+  border-radius: 100px;
 }
 
 .cover-pic {
   object-fit: cover;
   height: 400px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }

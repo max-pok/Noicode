@@ -32,7 +32,7 @@ function App() {
             <Home />
           </Route>
           <Route exact path='/profile'>
-            <Profile />
+            <Profile token={token} />
           </Route>
           <Route path='/'>
             <Home />
