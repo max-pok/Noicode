@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Auth from "./components/authentication/auth"
 import Home from "./components/home/home"
+import Navigation from "./components/navbar/navbar"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import "./App.css"
 import Profile from "./components/profile/profile"
@@ -24,19 +25,22 @@ function App() {
   return (
     <div className='App'>
       <Router>
+        <Navigation token={token} setToken={setToken} />
         <Switch>
-          <Route exact path='/auth'>
+          <Route path='/auth' exact>
             {token ? <Redirect to='/home' /> : <Auth saveToken={saveToken} />}
           </Route>
-          <Route path='/home'>
+          <Route path='/home' exact>
             <Home />
           </Route>
           <Route exact path='/profile'>
             <Profile token={token} />
           </Route>
           <Route path='/'>
+
             <Home />
           </Route>
+          <Redirect to='/home' />
         </Switch>
       </Router>
     </div>
