@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Auth from "./components/authentication/auth"
 import Home from "./components/home/home"
 import Navigation from "./components/navbar/navbar"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import "./App.css"
+import Profile from "./components/profile/profile"
 
 function App() {
   const getToken = () => {
@@ -32,7 +33,11 @@ function App() {
           <Route path='/home' exact>
             <Home />
           </Route>
-          <Route path='/' exact>
+          <Route exact path='/profile'>
+            <Profile token={token} />
+          </Route>
+          <Route path='/'>
+
             <Home />
           </Route>
           <Redirect to='/home' />
