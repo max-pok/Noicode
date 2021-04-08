@@ -18,14 +18,13 @@ const login = async (req, res) => {
 
 const register = async (req, res, next) => {
   const { email, password, firstName, lastName, dob } = req.body
-  const { decryptedEmail } = decrypt({ email, password })
   try{
-    const user = await authRepository.saveUser(decryptedEmail, password, firstName, lastName, dob)
+    const user = await authRepository.saveUser(email, password, firstName, lastName, dob)
     if(!user){
       return res.status(409).send("Email already exists.")
     }
     const token = await generateAuthToken(user)
-    return res.status(200).send(token)
+    return res.status(200).send({token})
   }catch(err){
     next(err)
   }

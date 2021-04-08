@@ -5,7 +5,8 @@ class AuthRepository {
   constructor() {}
 
   async findUser(email, password) {
-    const user = await User.findOne({ email: decrypt(email) }).select("+password") 
+    const user = await User.findOne({ email }).select("+password") 
+    console.log(user)
     if (!user || !(await user.isPasswordMatch(password))) {
       return null
     }
@@ -17,7 +18,8 @@ class AuthRepository {
     if(user){
       return null
     }
-    user = await new User({email, password, fname, lname, dob}).save()
+    const newUser = {email, password, fname, lname, dob}
+    user = await new User(newUser).save()
     return user
   }
 }
