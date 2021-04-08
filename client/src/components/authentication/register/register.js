@@ -16,12 +16,13 @@ const Register = () => {
 
     // encrypt register information.
     const encryptedValues = encrypt({ email: values.email, password: values.password })
-    const data = { ...encryptedValues, first_name: values.fname, last_name: values.lname, dob: values.dob }
+    const data = { ...encryptedValues, firstName: values.fname, lastName: values.lname, dob: values.dob }
     // send encrypted register information to server.
     console.log(data)
     axios
       .post(registerUrl, data, null)
       .then((response) => {
+        setIsLoading(false)
         console.log(response)
       })
       .catch((error) => {

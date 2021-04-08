@@ -1,5 +1,6 @@
 const AuthRepository = require("../repositories/auth.repository")
 const { generateAuthToken } = require("../utils/token")
+const {decrypt} = require('../utils/crypto')
 const authRepository = new AuthRepository()
 
 /**
@@ -15,4 +16,20 @@ const login = async (req, res) => {
   }
 }
 
-module.exports = { login }
+const register = async (req, res, next) => {
+  const { email, password, firstName, lastName, dob } = req.body
+  const { decryptedEmail } = decrypt({ email, password })
+  try{
+    const user = await authRepository.saveUser(decryptedEmail, password, firstName, lastName, dob)
+    if(!user){
+      return res.status(409).send("Email already exists.")
+    }
+    const token = await generateAuthToken(user)
+    return res.status(200).send(token)
+  }catch(err){
+    next(err)
+  }
+
+}
+
+module.exports = { login, register }

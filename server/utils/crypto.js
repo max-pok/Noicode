@@ -14,8 +14,16 @@ const encrypt = (data) => {
 }
 
 // AES decryption
-const decrypt = (ciphertext) => {
-  return CryptoJS.AES.decrypt(ciphertext, process.env.REACT_APP_SECRET_KEY).toString(CryptoJS.enc.Utf8)
+const decrypt = (data) => {
+  let decryptedData = {}
+  const keys = Object.keys(data)
+  const values = Object.values(data)
+
+  values.forEach((ciphertext, index) => {
+    const text = CryptoJS.AES.decrypt(ciphertext, process.env.REACT_APP_SECRET_KEY).toString(CryptoJS.enc.Utf8)
+    decryptedData = { ...decryptedData, [keys[index]]: text }
+  })
+  return decryptedData
 }
 
 module.exports = { encrypt, decrypt }
