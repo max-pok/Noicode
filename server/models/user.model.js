@@ -12,6 +12,8 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
+    select: false //hides the password. if you want the document with the password
+                  // add User.findOne(....).select('+password')
     // minlength: 8,
   },
   fname: {
