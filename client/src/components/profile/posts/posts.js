@@ -1,55 +1,46 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import axios from "axios"
 import { List, Divider, Avatar, Space, Button, Typography } from "antd"
 import { MessageOutlined, LikeOutlined } from "@ant-design/icons"
+import "./posts.css"
 
 const { Text } = Typography
 
-/**
- * Temporary function.
- */
-function randomDate(start, end) {
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
-}
-
-const listData = []
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: "https://ant.design",
-    title: `Post ${i}`,
-    avatar: "https://max-pok.web.app/assets/images/hero.jpeg",
-    post_img: "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-    like_count: Math.floor(Math.random() * 50),
-    comment_count: Math.floor(Math.random() * 10),
-    date: randomDate(new Date(2012, 0, 1), new Date()),
-    content: "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-    tags: ["React", "Node.js", "Express", "OpenToWork", "Jobless", "SoonToBeHomeless"],
-  })
-}
-
-const Posts = () => {
+const Posts = ({ userPosts }) => {
   const [isRecent, setIsRecent] = useState(true)
-  const [posts, setPosts] = useState(listData)
+  const [posts, setPosts] = useState([])
 
-  const IconText = ({ icon, text }) => (
-    <Space>
-      {React.createElement(icon)}
-      <Text keyboard>{text}</Text>
-    </Space>
-  )
-
-  const PostImage = (item) => <img width={272} alt='logo' src={item.post_img} />
-
-  const PostTitle = (item) => <a href={item.href}>{item.title}</a>
-
-  const PostAvatar = (item) => <Avatar src={item.avatar} size={55} />
+  useEffect(() => {
+    setPosts(userPosts)
+  }, [userPosts])
 
   const getPosts = () => {
     if (isRecent) {
-      return posts.sort((a, b) => b.date.getTime() - a.date.getTime())
+      return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     } else {
       return posts.sort((a, b) => b.like_count - a.like_count)
     }
   }
+
+  const LikeIcon = ({ icon, text }) => (
+    <Space>
+      <a className='like-icon'>{React.createElement(icon)}</a>
+      <Text keyboard>{text}</Text>
+    </Space>
+  )
+
+  const CommentIcon = ({ icon, text }) => (
+    <Space>
+      <a className='comment-icon'>{React.createElement(icon)}</a>
+      <Text keyboard>{text}</Text>
+    </Space>
+  )
+
+  const PostImage = (item) => item.post_img && <img width={272} alt='logo' src={item.post_img} />
+
+  const PostTitle = (item) => <a href={"posts/" + item._id}>{item.title}</a>
+
+  const PostAvatar = (item) => <Avatar src={"https://max-pok.web.app/assets/images/hero.jpeg"} size={55} />
 
   return (
     <>
@@ -71,8 +62,8 @@ const Posts = () => {
         bordered
         dataSource={getPosts()}
         renderItem={(item) => (
-          <List.Item key={item.title} actions={[<IconText icon={LikeOutlined} text={item.like_count} />, <IconText icon={MessageOutlined} text={item.comment_count} />]} extra={PostImage(item)}>
-            <List.Item.Meta avatar={PostAvatar(item)} title={PostTitle(item)} description={item.date.toDateString()} />
+          <List.Item key={item.title} actions={[<LikeIcon icon={LikeOutlined} text={item.noice_ids.length} />, <CommentIcon icon={MessageOutlined} text={item.comment_ids.length} />]} extra={PostImage(item)}>
+            <List.Item.Meta avatar={PostAvatar(item)} title={PostTitle(item)} description={new Date(item.date).toDateString()} />
             {item.content}
             <br />
             <br />

@@ -11,11 +11,19 @@ function App() {
     return localStorage.getItem("token")
   }
 
-  const [token, setToken] = useState(getToken())
+  const getUserId = () => {
+    return localStorage.getItem("userId")
+  }
 
-  const saveToken = (token) => {
+  const [token, setToken] = useState(getToken())
+  const [userId, setUserId] = useState(getUserId)
+
+  const saveToken = (token, userId) => {
     localStorage.setItem("token", token)
+    localStorage.setItem("userId", userId)
+
     setToken(token)
+    setUserId(userId)
   }
 
   // this will run when the localStorage is changed.
@@ -25,7 +33,7 @@ function App() {
   return (
     <div className='App'>
       <Router>
-        <Navigation token={token} setToken={setToken} />
+        <Navigation token={userId} setToken={setToken} setUserId={setUserId} />
         <Switch>
           <Route path='/auth' exact>
             {token ? <Redirect to='/home' /> : <Auth saveToken={saveToken} />}
@@ -33,11 +41,8 @@ function App() {
           <Route path='/home' exact>
             <Home />
           </Route>
-          <Route exact path='/profile'>
-            <Profile token={token} />
-          </Route>
+          <Route path={"/users/:userId"} component={Profile}></Route>
           <Route path='/'>
-
             <Home />
           </Route>
           <Redirect to='/home' />

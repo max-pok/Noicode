@@ -26,7 +26,7 @@ function Auth({ saveToken }) {
       </div>
       <Divider className='divider' type={window.innerWidth > 900 ? "vertical" : "horizontal"} />
       <div id='register-page' onClick={() => handlePageSwitch("register")}>
-        <Register saveToken={saveToken}/>
+        <Register saveToken={saveToken} />
       </div>
     </div>
   )

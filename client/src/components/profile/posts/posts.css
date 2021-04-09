@@ -1,0 +1,15 @@
+.like-icon {
+  color: aliceblue;
+}
+
+.like-icon:hover {
+  color: red;
+}
+
+.comment-icon {
+  color: aliceblue;
+}
+
+.comment-icon:hover {
+  color: rgb(27, 106, 151);
+}
