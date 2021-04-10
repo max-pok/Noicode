@@ -1,6 +1,5 @@
 const AuthRepository = require("../repositories/auth.repository")
 const { generateAuthToken } = require("../utils/token")
-const { decrypt } = require("../utils/crypto")
 const authRepository = new AuthRepository()
 
 /**

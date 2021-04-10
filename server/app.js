@@ -2,7 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const auth_routes = require("./routes/auth.route")
 const post_routes = require("./routes/post.route")
-const user_routes = require("./routes/user.route")
+const user_routes = require("./routes/user.route").router
 
 const app = express()
 app.use(cors())
