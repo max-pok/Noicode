@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import axios from "axios"
 import { List, Divider, Avatar, Space, Button, Typography } from "antd"
 import { MessageOutlined, LikeOutlined } from "@ant-design/icons"
 import "./posts.css"
