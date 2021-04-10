@@ -1,10 +1,14 @@
 const User = require("../models/user.model")
+const mongoose = require("mongoose")
 
 class UserRepository {
   constructor() {}
   async getUserInformation(userId) {
-    const user = await User.findOne({ _id: userId })
-    return user
+    if (mongoose.Types.ObjectId.isValid(userId)) {
+      const user = await User.findById(userId)
+      return user
+    }
+    return null
   }
 }
 

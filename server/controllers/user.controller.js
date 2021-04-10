@@ -13,4 +13,12 @@ const getUserInformation = async (req, res) => {
   }
 }
 
-module.exports = { getUserInformation }
+/**
+ * @Post
+ */
+const uploadAvatar = async (req, res) => {
+  res.status(200).send("Image uploaded successfully.")
+  // ...
+}
+
+module.exports = { getUserInformation, uploadAvatar }

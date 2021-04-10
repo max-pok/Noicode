@@ -24,7 +24,7 @@ const register = async (req, res, next) => {
       return res.status(409).send("Email already exists.")
     }
     const token = await generateAuthToken(user)
-    return res.status(200).send({ token })
+    return res.status(200).send({ token, userId: user._id })
   } catch (err) {
     next(err)
   }
