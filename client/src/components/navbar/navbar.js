@@ -43,7 +43,7 @@ const Navigation = (props) => {
             )}
             <Nav.Item className='d-flex'>
               <Dropdown overlay={ProfileDropDownMenu(props)} className='nav-info'>
-                <Avatar></Avatar>
+                <Avatar src={"http://localhost:8081/api/users/profile-img/" + props.token}></Avatar>
               </Dropdown>
             </Nav.Item>
           </Nav>
