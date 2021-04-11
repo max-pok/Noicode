@@ -5,7 +5,7 @@ import { Form, Input, Button, Card, Alert } from "antd"
 import { MailOutlined, LockOutlined, CalendarOutlined, UserOutlined } from "@ant-design/icons"
 import "./register.css"
 
-const Register = () => {
+const Register = ({ saveToken }) => {
   const registerUrl = "http://localhost:8080/auth/register"
 
   const [visibleAlert, setVisibleAlert] = useState(false)
@@ -13,16 +13,15 @@ const Register = () => {
 
   const onFinish = (values) => {
     setIsLoading(true)
-
     // encrypt register information.
-    const encryptedValues = encrypt({ email: values.email, password: values.password })
-    const data = { ...encryptedValues, first_name: values.fname, last_name: values.lname, dob: values.dob }
+    const encryptedValues = encrypt({ password: values.password })
+    const data = { ...encryptedValues, email: values.email, firstName: values.fname, lastName: values.lname, dob: values.dob }
     // send encrypted register information to server.
-    console.log(data)
     axios
       .post(registerUrl, data, null)
       .then((response) => {
-        console.log(response)
+        setIsLoading(false)
+        saveToken(response.data.token, response.data.userId)
       })
       .catch((error) => {
         setIsLoading(false)
@@ -37,9 +36,7 @@ const Register = () => {
     <Form name='normal_register' className='register-form input-form' initialValues={{ remember: true }} onFinish={onFinish}>
       <Card className='register-card animate__animated animate__zoomIn' bordered>
         <h4 className='display-5 text-center mb-4'>Register</h4>
-
         <Form.Item>{visibleAlert && <Alert message='Incorrect username or password.' type='error' closable afterClose={handleCloseAlert} />}</Form.Item>
-
         <Form.Item
           name='email'
           hasFeedback
@@ -50,11 +47,9 @@ const Register = () => {
         >
           <Input className='input' prefix={<MailOutlined />} size='large' placeholder='E-mail' />
         </Form.Item>
-
         <Form.Item name='password' hasFeedback rules={[{ required: true, message: "Please enter your password!" }]}>
           <Input className='input' prefix={<LockOutlined />} size='large' type='password' placeholder='Password' />
         </Form.Item>
-
         <Form.Item
           name='confirm-password'
           dependencies={["password"]}
@@ -73,15 +68,12 @@ const Register = () => {
         >
           <Input className='input' prefix={<LockOutlined />} size='large' type='password' placeholder='Repeat password' />
         </Form.Item>
-
         <Form.Item name='fname' hasFeedback rules={[{ required: true, message: "Please enter your first name!" }]}>
           <Input className='input' prefix={<UserOutlined />} size='large' type='text' placeholder='First Name' />
         </Form.Item>
-
         <Form.Item name='lname' hasFeedback rules={[{ required: true, message: "Please enter your last name!" }]}>
           <Input className='input' prefix={<UserOutlined />} size='large' type='text' placeholder='Last Name' />
         </Form.Item>
-
         <Form.Item
           name='dob'
           hasFeedback
@@ -100,7 +92,6 @@ const Register = () => {
         >
           <Input className='input' prefix={<CalendarOutlined />} size='large' type='date' placeholder='Date of Birth' />
         </Form.Item>
-
         <Form.Item>
           <Button type='primary' htmlType='submit' className='register-form-button' size='large' loading={isLoading}>
             Register
