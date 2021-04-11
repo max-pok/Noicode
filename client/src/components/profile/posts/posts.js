@@ -39,7 +39,7 @@ const Posts = ({ userPosts }) => {
 
   const PostTitle = (item) => <a href={"posts/" + item._id}>{item.title}</a>
 
-  const PostAvatar = (item) => <Avatar src={"https://max-pok.web.app/assets/images/hero.jpeg"} size={55} />
+  const PostAvatar = (item) => <Avatar src={"http://localhost:8081/api/users/profile-img/" + item.user_id} size={55} />
 
   return (
     <>

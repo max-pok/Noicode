@@ -20,8 +20,6 @@ class AuthRepository {
       return null
     }
 
-    await this.initializeDefaultImages()
-
     // get default avatar & cover image.
     const avatar_img = await UserFile.findOne({ filename: "default_avatar.png" })
     const cover_img = await UserFile.findOne({ filename: "default_cover.jpg" })

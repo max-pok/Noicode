@@ -7,8 +7,7 @@ const connect = mongoose.createConnection(config.url, config.options)
 let gfs
 
 connect.on("open", () => {
-  console.log("Connected to GridFS.")
-  // initialize stream
+  // initialize GridFS
   gfs = new mongoose.mongo.GridFSBucket(connect.db, {
     bucketName: "users",
   })
@@ -30,7 +29,7 @@ const getUserInformation = async (req, res) => {
  * @Get
  */
 const getUserProfileImage = async (req, res) => {
-  const user = await userRepository.getUserProfileImage(req.params.userId)
+  const user = await userRepository.getUserInformation(req.params.userId)
   if (user) {
     await gfs.find({ _id: user.avatar_img }).toArray((err, files) => {
       if (!files[0] || files.length === 0) {
@@ -51,7 +50,7 @@ const getUserProfileImage = async (req, res) => {
  * @Get
  */
 const getUserCoverImage = async (req, res) => {
-  const user = await userRepository.getUserProfileImage(req.params.userId)
+  const user = await userRepository.getUserInformation(req.params.userId)
   if (user) {
     await gfs.find({ _id: user.cover_img }).toArray((err, files) => {
       if (!files[0] || files.length === 0) {

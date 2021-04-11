@@ -14,7 +14,7 @@ mongoose.connect(mongoose_config.url, mongoose_config.options).then(() => {
   })
 
   stream_server = stream_app.listen(STREAM_PORT, () => {
-    console.log(`Stream server is listening on port ${STREAM_PORT}.`)
+    console.log(`Streaming server is listening on port ${STREAM_PORT}.`)
   })
 })
 
