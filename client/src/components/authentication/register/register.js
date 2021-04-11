@@ -5,7 +5,7 @@ import { Form, Input, Button, Card, Alert } from "antd"
 import { MailOutlined, LockOutlined, CalendarOutlined, UserOutlined } from "@ant-design/icons"
 import "./register.css"
 
-const Register = ({saveToken}) => {
+const Register = ({ saveToken }) => {
   const registerUrl = "http://localhost:8080/auth/register"
 
   const [visibleAlert, setVisibleAlert] = useState(false)
@@ -21,7 +21,7 @@ const Register = ({saveToken}) => {
       .post(registerUrl, data, null)
       .then((response) => {
         setIsLoading(false)
-        saveToken(response.data.token)
+        saveToken(response.data.token, response.data.userId)
       })
       .catch((error) => {
         setIsLoading(false)

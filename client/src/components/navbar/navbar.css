@@ -18,6 +18,7 @@
 
 .nav-link {
   color: rgba(255, 255, 255, 0.7);
+  font-size: large;
 }
 
 .nav-link {
@@ -98,7 +99,7 @@
 
 .notification-by-who {
   color: rgb(123, 199, 218);
-  font-size: medium;
+  font-size: small;
 }
 
 .nav-right {
