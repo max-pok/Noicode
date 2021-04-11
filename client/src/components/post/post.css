@@ -80,18 +80,19 @@
   transition: all 0.4s;
   width: 2em;
   height: 2em;
+  right: 5px;
+  top: 5px;
 }
 
 .close-link {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 50%;
 }
+
 .close-post {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 50%;
   visibility: hidden;
-  right: 5px;
-  top: 5px;
 }
 
 .cross:hover {
@@ -100,24 +101,14 @@
   transform: rotate(20deg);
 }
 
-.image-tab {
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
-  background-color: aqua;
-  display: none;
-}
-
-.link-tab {
-  padding: 20px;
+.link-input {
+  padding-bottom: 20px;
   margin: 0 auto;
   display: none;
+  width: 500px;
 }
-.link-tab .ant-input {
-  margin: 0 auto;
-  margin-left: 5px;
-  width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+.link-input .ant-input {
+  margin-left: 15px;
 }
 
 .visible {
@@ -128,11 +119,18 @@
   display: block;
 }
 
+@media screen and (max-width: 1250px) {
+  .link-input {
+    width: 90%;
+  }
+}
+
 @media screen and (max-width: 1040px) {
   .main-container {
     max-width: 90%;
   }
 }
+
 @media screen and (max-width: 480px) {
   .tabs-holder {
     flex-direction: column;
@@ -146,4 +144,8 @@
   .image-holder {
     display: none;
   }
+}
+
+.ant-upload-list {
+  display: none;
 }

@@ -8,8 +8,12 @@ const Tab = (props) => {
       // route action to upload router
       // action="/upload",
       beforeUpload: (file) => {
-        console.log(file);
-        return file.type === 'image/png' ? props.setImages(file.response.url) : message.error(`${file.name} is not a png file`);
+        console.log(file.type);
+        if (file.type === 'image/png' || file.type === 'image/jpeg')
+          return props.setImages({
+            preview: URL.createObjectURL(file),
+          });
+        else message.error(`${file.name} error`);
       },
     };
     return (
@@ -21,7 +25,7 @@ const Tab = (props) => {
     );
   } else {
     const linkClick = () => {
-      props.setLinkState(true);
+      props.setLinkDisplayState(!props.state);
     };
     return (
       <Button className='tab' icon={props.icon} onClick={linkClick}>
