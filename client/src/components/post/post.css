@@ -1,0 +1,151 @@
+:root {
+  --clr-border: 1px solid rgba(255, 255, 255, 0.12);
+  --clr-bg-primary: #283142;
+}
+
+.main-container {
+  /*max width is now 40% but should be changed to 100% later when the main column is created for the page*/
+  max-width: 40%;
+  border: var(--clr-border);
+  border-radius: 5px;
+  background-color: var(--clr-bg-primary);
+  position: relative;
+}
+
+.post-holder {
+  width: 100%;
+  min-height: 10vh;
+  display: flex;
+  padding-top: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 5px;
+  gap: 5%;
+}
+
+.input {
+  width: 70%;
+  margin-top: 25px;
+}
+.image-holder {
+  width: 50px;
+  height: 50px;
+}
+
+.image-holder img {
+  max-width: 100%;
+  max-height: 100%;
+  background-clip: padding-box;
+  border-radius: 50%;
+}
+
+.tabs-holder {
+  display: flex;
+  flex-direction: row;
+  min-height: 2em;
+  padding-top: 5px;
+  justify-content: center;
+  gap: 25px;
+  padding: 0 40px;
+  margin-bottom: 25px;
+}
+
+.post-bottom {
+  display: flex;
+  width: 100%;
+  height: 3em;
+  justify-content: center;
+  margin-bottom: 15px;
+  display: none;
+}
+.publish-post-btn {
+  width: 80%;
+}
+
+.divider-active {
+  margin-bottom: 15px;
+}
+.divider {
+  visibility: hidden;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  margin-top: 10px;
+}
+
+.cross {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.4s;
+  width: 2em;
+  height: 2em;
+  right: 5px;
+  top: 5px;
+}
+
+.close-link {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+}
+
+.close-post {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  visibility: hidden;
+}
+
+.cross:hover {
+  background-color: #242c34;
+  border-radius: 50%;
+  transform: rotate(20deg);
+}
+
+.link-input {
+  padding-bottom: 20px;
+  margin: 0 auto;
+  display: none;
+  width: 500px;
+}
+.link-input .ant-input {
+  margin-left: 15px;
+}
+
+.visible {
+  visibility: visible;
+}
+.active {
+  visibility: visible;
+  display: block;
+}
+
+@media screen and (max-width: 1250px) {
+  .link-input {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 1040px) {
+  .main-container {
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .tabs-holder {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 335px) {
+  .image-holder {
+    display: none;
+  }
+}
+
+.ant-upload-list {
+  display: none;
+}

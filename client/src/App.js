@@ -1,15 +1,17 @@
-import { useState } from "react"
+
+import { useState, useEffect } from "react"
 import Auth from "./components/authentication/auth"
 import Home from "./components/home/home"
 import Navigation from "./components/navbar/navbar"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
+import Post from './components/post/post';
 import "./App.css"
 import Profile from "./components/profile/profile"
 
 function App() {
   const getToken = () => {
-    return localStorage.getItem("token")
-  }
+    return localStorage.getItem('token');
+  };
 
   const getUserId = () => {
     return localStorage.getItem("userId")
@@ -44,12 +46,13 @@ function App() {
           <Route path={"/users/:userId"} component={Profile}></Route>
           <Route path='/'>
             <Home />
+            {/* <Home /> */}
           </Route>
           <Redirect to='/home' />
         </Switch>
       </Router>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
