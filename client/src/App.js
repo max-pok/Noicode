@@ -32,7 +32,7 @@ function App() {
             <Home />
           </Route>
           <Route path='/'>
-            <Post />
+            <Home />
             {/* <Home /> */}
           </Route>
         </Switch>
