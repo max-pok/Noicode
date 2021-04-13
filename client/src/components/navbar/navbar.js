@@ -1,20 +1,23 @@
 import "./navbar.css"
 import React, { useState } from "react"
-
 import { NavLink } from "react-router-dom"
 import { Input, Avatar, Dropdown, Menu, Badge } from "antd"
 import { BellOutlined } from "@ant-design/icons"
 import ProfileDropDownMenu from "./profile-drop-down-menu"
 import NotificationsDropDownMenu from "./notifications-drop-down-menu"
-
+import { useLocation } from "react-router-dom"
 import { Navbar, Nav, Form } from "react-bootstrap"
+
 
 const { Search } = Input
 
 const Navigation = (props) => {
   const [notifications, setNotifications] = useState([1, 2])
-
   const onSearch = (value) => console.log(props)
+
+  // if (useLocation().pathname === '/404') {
+  //   return null
+  // }
 
   return (
     <>

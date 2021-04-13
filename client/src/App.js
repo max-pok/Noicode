@@ -4,7 +4,8 @@ import Home from "./components/home/home"
 import Navigation from "./components/navbar/navbar"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import "./App.css"
-import Profile from "./components/profile/profile"
+import Profile from "./components/profile/profile";
+import NotFound from './components/notFound/NotFound';
 
 function App() {
   const getToken = () => {
@@ -23,28 +24,23 @@ function App() {
   // })
 
   return (
-    <div className='App'>
+    <div className="App">
       <Router>
-        <Navigation token={token} setToken={setToken} />
+        <Navigation token={token} setToken={setToken}/>
         <Switch>
-          <Route path='/auth' exact>
-            {token ? <Redirect to='/home' /> : <Auth saveToken={saveToken} />}
+          <Route path="/auth" exact >
+            {token ? <Redirect to="/home" /> : <Auth saveToken={saveToken} />}
           </Route>
-          <Route path='/home' exact>
-            <Home />
-          </Route>
-          <Route exact path='/profile'>
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/profile">
             <Profile token={token} />
           </Route>
-          <Route path='/'>
-
-            <Home />
-          </Route>
-          <Redirect to='/home' />
+          <Route exact path="/" component={Home} />
+          <Route component={NotFound} />
         </Switch>
       </Router>
     </div>
-  )
+  );
 }
 
 export default App
