@@ -2,21 +2,29 @@ import { useState } from "react"
 import Auth from "./components/authentication/auth"
 import Home from "./components/home/home"
 import Navigation from "./components/navbar/navbar"
+import NotFound from "./components/notFound/NotFound"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import "./App.css"
-import Profile from "./components/profile/profile";
-import NotFound from './components/notFound/NotFound';
+import Profile from "./components/profile/profile"
 
 function App() {
   const getToken = () => {
     return localStorage.getItem("token")
   }
 
-  const [token, setToken] = useState(getToken())
+  const getUserId = () => {
+    return localStorage.getItem("userId")
+  }
 
-  const saveToken = (token) => {
+  const [token, setToken] = useState(getToken())
+  const [userId, setUserId] = useState(getUserId)
+
+  const saveToken = (token, userId) => {
     localStorage.setItem("token", token)
+    localStorage.setItem("userId", userId)
+
     setToken(token)
+    setUserId(userId)
   }
 
   // this will run when the localStorage is changed.
@@ -24,23 +32,25 @@ function App() {
   // })
 
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
-        <Navigation token={token} setToken={setToken}/>
+        <Navigation token={userId} setToken={setToken} setUserId={setUserId} />
         <Switch>
-          <Route path="/auth" exact >
-            {token ? <Redirect to="/home" /> : <Auth saveToken={saveToken} />}
+          <Route path='/auth' exact>
+            {token ? <Redirect to='/home' /> : <Auth saveToken={saveToken} />}
           </Route>
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/profile">
-            <Profile token={token} />
+          <Route path='/home' exact>
+            <Home />
           </Route>
-          <Route exact path="/" component={Home} />
+          <Route path={"/users/:userId"} component={Profile}></Route>
+          <Route path='/' exact>
+            <Home />
+          </Route>
           <Route component={NotFound} />
         </Switch>
       </Router>
     </div>
-  );
+  )
 }
 
 export default App

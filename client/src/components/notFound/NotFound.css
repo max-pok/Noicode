@@ -1,7 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
-body {
-  overflow-y: hidden;
-}
 
 .error-container {
   background-image: url("../../assets/morpheus-bg.png");
