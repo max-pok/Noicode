@@ -16,14 +16,14 @@ const Login = ({ saveToken }) => {
 
     // encrypt login information.
     const encryptedValues = encrypt({ password: values.password })
-    const data = {...encryptedValues, email: values.email}
+    const data = { ...encryptedValues, email: values.email }
 
     // send encrypted login information to server.
     axios
       .post(loginUrl, data)
       .then((response) => {
         setIsLoading(false)
-        saveToken(response.data.token)
+        saveToken(response.data.token, response.data.userId)
       })
       .catch(() => {
         setIsLoading(false)

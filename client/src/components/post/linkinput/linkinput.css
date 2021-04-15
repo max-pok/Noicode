@@ -1,0 +1,9 @@
+.link-input {
+  padding-bottom: 20px;
+  margin: 0 auto;
+  display: none;
+  width: 500px;
+}
+.link-input .ant-input {
+  margin-left: 15px;
+}

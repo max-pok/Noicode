@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const { decrypt } = require('../utils/crypto');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose")
+const { decrypt } = require("../utils/crypto")
+const bcrypt = require("bcrypt")
 
 const userSchema = mongoose.Schema({
   email: {
@@ -12,8 +12,8 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
-    select: false //hides the password. if you want the document with the password
-                  // add User.findOne(....).select('+password')
+    select: false, //hides the password. if you want the document with the password
+    // add User.findOne(....).select('+password')
     // minlength: 8,
   },
   fname: {
@@ -28,7 +28,15 @@ const userSchema = mongoose.Schema({
     type: Date,
     required: true,
   },
-});
+  avatar_img: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "UserFile",
+  },
+  cover_img: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "UserFile",
+  },
+})
 
 /**
  * Check if password matches the user's password
@@ -36,9 +44,9 @@ const userSchema = mongoose.Schema({
  * @returns {Promise<boolean>}
  */
 userSchema.methods.isPasswordMatch = async function (password) {
-  const user = this;
-  return decrypt(password) === decrypt(user.password);
-};
+  const user = this
+  return decrypt(password) === decrypt(user.password)
+}
 
-const User = mongoose.model('Users', userSchema);
-module.exports = User;
+const User = mongoose.model("Users", userSchema)
+module.exports = User
