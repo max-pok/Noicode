@@ -75,4 +75,17 @@ const uploadAvatar = async (req, res) => {
   // ...
 }
 
-module.exports = { getUserInformation, uploadAvatar, getUserProfileImage, getUserCoverImage }
+/**
+ * @Post
+ */
+const updateDetails = async (req, res, next)=>{
+  try{
+    await userRepository.setUserInformation(req.params.userId, req.body.information)
+    res.sendStatus(200)
+  }catch(err){
+    res.status(400).send(err.message)
+  }
+
+}
+
+module.exports = {updateDetails, getUserInformation, uploadAvatar, getUserProfileImage, getUserCoverImage }

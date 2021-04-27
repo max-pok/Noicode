@@ -36,6 +36,30 @@ const userSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "UserFile",
   },
+  studied_at: {
+    type: String,
+    require: false
+  },
+  works_at: {
+    type: String,
+    require: false
+  },
+  from: {
+    type: String,
+    require: false
+  },
+  lives_in: {
+    type: String,
+    require: false
+  },
+  github: {
+    type: String,
+    require: false
+  },
+  linkedin: {
+    type: String,
+    require: false
+  },
 })
 
 /**
