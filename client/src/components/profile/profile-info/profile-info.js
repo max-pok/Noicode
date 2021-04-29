@@ -38,11 +38,13 @@ const ProfileInfo = (props) => {
       title: 'GitHub',
       description: information.github || '-',
       icon: <FontAwesomeIcon icon={faGithub} />,
+      rules: { link: true },
     },
     {
       title: 'LinkedIn',
       description: information.linkedin || '-',
       icon: <FontAwesomeIcon icon={faLinkedinIn} />,
+      rules: { link: true },
     },
   ];
 
@@ -102,10 +104,21 @@ const ProfileInfo = (props) => {
             item.description && (
               <List.Item>
                 {!isEditing ? (
-                  <List.Item.Meta title={item.title} description={item.description} />
+                  <List.Item.Meta
+                    title={item.title}
+                    description={
+                      item.rules && item.rules.link ? (
+                        <a href={`https://${item.title}.com/${item.description}`} target="_blank">
+                          {item.description}
+                        </a>
+                      ) : (
+                        item.description
+                      )
+                    }
+                  />
                 ) : (
                   <Form.Item label={item.title} name={item.title.toLowerCase().split(' ').join('_')} className="form-item">
-                    <Input name={item.title.toLowerCase().split(' ').join('_')} placeholder={item.description} />
+                    <Input addonBefore={item.rules && item.rules.link && `https://${item.title}.com/`} name={item.title.toLowerCase().split(' ').join('_')} placeholder={item.description} />
                   </Form.Item>
                 )}
                 {item.icon}
