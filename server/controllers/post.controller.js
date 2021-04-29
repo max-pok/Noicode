@@ -21,8 +21,8 @@ const getPosts = async (req, res) => {
   if (!posts) {
     res.status(400).send("No posts found.")
   } else {
-    res.send({ posts })
+    res.send(posts)
   }
 }
 
-module.exports = { getUserPosts }
+module.exports = { getUserPosts, getPosts }

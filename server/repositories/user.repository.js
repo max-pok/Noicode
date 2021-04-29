@@ -13,16 +13,24 @@ class UserRepository {
     return null
   }
 
-  async setUserInformation(userId, information){
+  async getUserName(userId) {
+    if (mongoose.Types.ObjectId.isValid(userId)) {
+      const user = await User.findById(userId).select("fname lname")
+      console.log(user)
+      return user
+    }
+    return null
+  }
+
+  async setUserInformation(userId, information) {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       throw "Invalid User ID."
     }
     const user = await User.findByIdAndUpdate(userId, information)
-    if(!user){
+    if (!user) {
       throw "User not found"
     }
   }
-
 }
 
 module.exports = UserRepository
