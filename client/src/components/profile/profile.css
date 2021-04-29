@@ -19,6 +19,8 @@
 .cover-pic {
   object-fit: cover;
   height: 400px;
+  width: auto;
+  border-radius: 0px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }

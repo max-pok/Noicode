@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Avatar, Image } from 'antd';
-import Posts from './posts/posts';
-import ProfileInfo from './profile-info/profile-info';
-import axios from 'axios';
-import './profile.css';
+import React, { useState, useEffect } from "react";
+import { Avatar, Image, Upload } from "antd";
+import Posts from "./posts/posts";
+import ProfileInfo from "./profile-info/profile-info";
+import axios from "axios";
+import defaultAvatar from "../../assets/avatar_default.svg";
+import defaultCover from "../../assets/cover_default.jpeg";
+
+import "./profile.css";
 
 const Profile = (props) => {
-  const userInfoUrl = 'http://localhost:8080/api/users/' + props.match.params.userId;
-  const userPostsUrl = 'http://localhost:8080/api/posts/' + props.match.params.userId;
+  const userInfoUrl = "http://localhost:8080/api/users/" + props.match.params.userId;
+  const userPostsUrl = "http://localhost:8080/api/posts/" + props.match.params.userId;
+  const uploadPicture = `http://localhost:8080/api/users/update/pictures/${props.match.params.userId}`;
 
-  const [coverImg, setCoverImg] = useState('http://localhost:8081/api/users/cover-img/' + props.match.params.userId);
-  const [profileImg, setProfileImg] = useState('http://localhost:8081/api/users/profile-img/' + props.match.params.userId);
+  const [coverImg, setCoverImg] = useState(defaultCover);
+  const [profileImg, setProfileImg] = useState(defaultAvatar);
 
   const [userInformation, setUserInformation] = useState({});
   const [userPosts, setUserPosts] = useState([]);
@@ -41,10 +45,14 @@ const Profile = (props) => {
   return (
     <div className="container">
       <div className="row justify-content-md-center">
-        <Image className="cover-pic" src={coverImg} />
+        <Upload name="cover" showUploadList={false} accept="image/*" maxCount={1} action={uploadPicture} headers={{ picture_type: "cover" }} onChange={(info) => console.log(info.file.originFileObj)}>
+          <Avatar className="cover-pic" alt="cover" src={coverImg} />
+        </Upload>
         <div className="profile-pic">
-          <Avatar src={profileImg} size={140} className="avatar-pic"></Avatar>
-          {userInformation.fname && userInformation.lname && <h3> {userInformation.fname + ' ' + userInformation.lname} </h3>}
+          <Upload name="avatar" showUploadList={false} accept="image/*" maxCount={1} action={uploadPicture} headers={{ picture_type: "avatar" }}>
+            <Avatar className="avatar-pic" size={140} alt="avatar" src={profileImg} />
+          </Upload>
+          {userInformation.fname && userInformation.lname && <h3> {userInformation.fname + " " + userInformation.lname} </h3>}
           {userInformation.user_profession && <p> {userInformation.user_profession} </p>}
 
           <div className="row text-start">

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { List, Divider, Space, Button, Input, Form } from 'antd';
-import { faMapMarkerAlt, faGraduationCap, faGlobeAmericas, faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import './profile-info.css';
+import React, { useState, useEffect } from "react";
+import { List, Divider, Space, Button, Input, Form } from "antd";
+import { faMapMarkerAlt, faGraduationCap, faGlobeAmericas, faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import "./profile-info.css";
 
 const ProfileInfo = (props) => {
-  const updateUrl = 'http://localhost:8080/api/users/update';
+  const updateUrl = "http://localhost:8080/api/users/update/info";
 
   const [isCurrentUser, setIsCurrentUser] = useState(false);
   const [information, setInformation] = useState([]);
@@ -15,36 +15,36 @@ const ProfileInfo = (props) => {
 
   const data = [
     {
-      title: 'Studied at',
-      description: information.studied_at || '-',
+      title: "Studied at",
+      description: information.studied_at || "-",
       icon: <FontAwesomeIcon icon={faGraduationCap} />,
     },
     {
-      title: 'Works at',
-      description: information.works_at || '-',
+      title: "Works at",
+      description: information.works_at || "-",
       icon: <FontAwesomeIcon icon={faBuilding} />,
     },
     {
-      title: 'From',
-      description: information.from || '-',
+      title: "From",
+      description: information.from || "-",
       icon: <FontAwesomeIcon icon={faGlobeAmericas} />,
     },
     {
-      title: 'Lives in',
-      description: information.lives_in || '-',
+      title: "Lives in",
+      description: information.lives_in || "-",
       icon: <FontAwesomeIcon icon={faMapMarkerAlt} />,
     },
     {
-      title: 'GitHub',
-      description: information.github || '-',
+      title: "GitHub",
+      description: information.github || "-",
       icon: <FontAwesomeIcon icon={faGithub} />,
-      rules: { link: true },
+      rules: { link: "https://github.com/" },
     },
     {
-      title: 'LinkedIn',
-      description: information.linkedin || '-',
+      title: "LinkedIn",
+      description: information.linkedin || "-",
       icon: <FontAwesomeIcon icon={faLinkedinIn} />,
-      rules: { link: true },
+      rules: { link: "https://linkedin.com/in/" },
     },
   ];
 
@@ -63,6 +63,7 @@ const ProfileInfo = (props) => {
     axios
       .post(updateUrl + `/${props.userId}`, information)
       .then((response) => {
+        document.getElementById("form").reset();
         setIsEditing(false);
         props.sethasEditedInfo(true);
       })
@@ -73,7 +74,7 @@ const ProfileInfo = (props) => {
 
   useEffect(() => {
     // checks if the profile page belongs to the logged in user.
-    setIsCurrentUser(props.userId === localStorage.getItem('userId'));
+    setIsCurrentUser(props.userId === localStorage.getItem("userId"));
 
     if (props.userInformation) {
       setInformation(props.userInformation);
@@ -85,12 +86,12 @@ const ProfileInfo = (props) => {
   return (
     <>
       <Divider orientation="center">Information</Divider>
-      <Form onFinish={handleChanges}>
+      <Form onFinish={handleChanges} id="form">
         {isCurrentUser && (
           <div className="text-start">
             <Space>
-              <Button onClick={() => setIsEditing(!isEditing)}>{!isEditing ? 'Edit' : 'Undo'}</Button>
-              {isEditing ? <Button htmlType="submit">Done</Button> : ' '}
+              <Button onClick={() => setIsEditing(!isEditing)}>{!isEditing ? "Edit" : "Undo"}</Button>
+              {isEditing ? <Button htmlType="submit">Done</Button> : " "}
             </Space>
           </div>
         )}
@@ -108,7 +109,7 @@ const ProfileInfo = (props) => {
                     title={item.title}
                     description={
                       item.rules && item.rules.link ? (
-                        <a href={`https://${item.title}.com/${item.description}`} target="_blank">
+                        <a href={`${item.rules.link}${item.description}`} target="_blank">
                           {item.description}
                         </a>
                       ) : (
@@ -117,8 +118,8 @@ const ProfileInfo = (props) => {
                     }
                   />
                 ) : (
-                  <Form.Item label={item.title} name={item.title.toLowerCase().split(' ').join('_')} className="form-item">
-                    <Input addonBefore={item.rules && item.rules.link && `https://${item.title}.com/`} name={item.title.toLowerCase().split(' ').join('_')} placeholder={item.description} />
+                  <Form.Item label={item.title} name={item.title.toLowerCase().split(" ").join("_")} className="form-item">
+                    <Input addonBefore={item.rules && item.rules.link && `${item.rules.link}`} name={item.title.toLowerCase().split(" ").join("_")} placeholder={item.description} />
                   </Form.Item>
                 )}
                 {item.icon}

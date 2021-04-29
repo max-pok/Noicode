@@ -69,8 +69,8 @@ const getUserCoverImage = async (req, res) => {
 
 const updatePictures = async (req, res) => {
   try {
-    console.log(req.body);
-    await userRepository.setUserPictures(req.params.userId, req.body.avatar, req.body.cover);
+    console.log(req);
+    // await userRepository.setUserPictures(req.params.userId, req.body.avatar, req.body.cover);
   } catch (err) {
     res.status(400).send(err.message);
   }
@@ -81,7 +81,7 @@ const updatePictures = async (req, res) => {
  */
 const updateDetails = async (req, res, next) => {
   try {
-    await userRepository.setUserInformation(req.params.userId, req.body.information);
+    await userRepository.setUserInformation(req.params.userId, req.body);
     res.sendStatus(200);
   } catch (err) {
     res.status(400).send(err.message);
