@@ -42,7 +42,7 @@ const Posts = (props) => {
             </div>
           </div>
 
-          <Image src={post.img || "https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg"} />
+          {post.img[0] && post.img[0].length > 0 && <Image src={"http://localhost:8081/api/posts/" + post._id} />}
 
           <div className='container'>
             <div className='row justify-content-end'>
