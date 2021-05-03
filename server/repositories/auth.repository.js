@@ -1,5 +1,5 @@
 const User = require("../models/user.model")
-const UserFile = require("../models/user-file.model")
+const { UserFile } = require("../models/file.model")
 const fs = require("fs")
 const path = require("path")
 
