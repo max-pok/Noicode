@@ -14,8 +14,12 @@
 
 .post-pic {
   object-fit: cover;
-  height: 300px;
   cursor: pointer;
+}
+
+.post-divider {
+  position: relative;
+  top: 20px;
 }
 
 [nz-carousel-content] {
@@ -100,4 +104,11 @@ h3 {
 .icons {
   position: relative;
   top: -2px;
+}
+
+.post-content {
+  position: relative;
+  top: -10px;
+  white-space: pre-line;
+  color: white;
 }
