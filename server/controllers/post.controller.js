@@ -41,22 +41,16 @@ const getPosts = async (req, res) => {
  * @Get
  */
 const getPostImage = async (req, res) => {
-  const post = await postRepository.getPostInformation(req.params.postId)
-  console.log(post)
-  if (post) {
-    await gfs.find({ _id: post.img[0] }).toArray((err, files) => {
-      if (!files[0] || files.length === 0) {
-        return res.status(200).json({
-          success: false,
-          message: "No post files available",
-        })
-      }
-      // render image to browser
-      gfs.openDownloadStream(post.img[0]).pipe(res)
-    })
-  } else {
-    res.status(400).send("No such post.")
-  }
+  await gfs.find({ _id: mongoose.Types.ObjectId(req.params.postImageId) }).toArray((err, files) => {
+    if (!files[0] || files.length === 0) {
+      return res.status(200).json({
+        success: false,
+        message: "No post files available",
+      })
+    }
+    // render image to browser
+    gfs.openDownloadStream(mongoose.Types.ObjectId(req.params.postImageId)).pipe(res)
+  })
 }
 
 module.exports = { getUserPosts, getPosts, getPostImage }
