@@ -35,7 +35,16 @@ const Posts = ({ userPosts, userName }) => {
     </Space>
   )
 
-  const PostImage = (item) => item.img[0] && item.img[0].length > 0 && <Image className='post-pic' width={272} height={150} src={"http://localhost:8081/api/posts/" + item._id} />
+  const PostImage = (item) =>
+    item.img[0] &&
+    item.img[0].length > 0 &&
+    item.img.map((id) => {
+      return (
+        <div key={id}>
+          <Image className='post-pic' width={272} height={150} src={"http://localhost:8081/api/posts/" + id} />
+        </div>
+      )
+    })
 
   const PostTitle = () => <a>{userName}</a>
 
