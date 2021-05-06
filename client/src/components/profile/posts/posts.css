@@ -13,3 +13,13 @@
 .comment-icon:hover {
   color: rgb(27, 106, 151);
 }
+
+.post-pic {
+  object-fit: cover;
+  width: 272px;
+  height: 100px;
+}
+
+.content {
+  white-space: pre-line;
+}

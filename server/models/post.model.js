@@ -29,6 +29,10 @@ const postSchema = mongoose.Schema({
     type: Array,
     required: true,
   },
+  img: {
+    type: Array,
+    of: mongoose.Schema.Types.ObjectId,
+  },
 })
 
 const Post = mongoose.model("Posts", postSchema)

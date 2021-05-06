@@ -4,6 +4,7 @@ const router = express.Router()
 const stream_router = express.Router()
 
 router.route("/:userId").get(userController.getUserInformation) // get user information.
+router.route("/name/:userId").get(userController.getUserFullName) // get user full name.
 router.route("/upload-avatar/:userId").post(userController.uploadAvatar)
 router.route("/update/:userId").post(userController.updateDetails)
 
