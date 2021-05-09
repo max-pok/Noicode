@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/max-pok/Noicode#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "concurrently": "^6.0.0"
   }
 }

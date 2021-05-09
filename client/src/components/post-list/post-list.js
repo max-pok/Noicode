@@ -1,133 +1,133 @@
-import "./post-list.css"
-import { Avatar, Image, Typography, Divider } from "antd"
-import { CommentOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons"
-import React, { useState, useEffect } from "react"
-import Gallery from "react-photo-gallery"
-import axios from "axios"
+import './post-list.css';
+import { Avatar, Image, Typography, Divider } from 'antd';
+import { CommentOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import Gallery from 'react-photo-gallery';
+import axios from 'axios';
 
-const { Text } = Typography
+const { Text } = Typography;
 
 export const photos = [
   {
-    src: "https://source.unsplash.com/2ShvY8Lf6l0/800x599",
+    src: 'https://source.unsplash.com/2ShvY8Lf6l0/800x599',
     width: 4,
     height: 3,
   },
   {
-    src: "https://source.unsplash.com/Dm-qxdynoEc/800x799",
+    src: 'https://source.unsplash.com/Dm-qxdynoEc/800x799',
     width: 1,
     height: 1,
   },
   {
-    src: "https://source.unsplash.com/qDkso9nvCg0/600x799",
+    src: 'https://source.unsplash.com/qDkso9nvCg0/600x799',
     width: 3,
     height: 4,
   },
   {
-    src: "https://source.unsplash.com/iecJiKe_RNg/600x799",
+    src: 'https://source.unsplash.com/iecJiKe_RNg/600x799',
     width: 3,
     height: 4,
   },
   {
-    src: "https://source.unsplash.com/epcsn8Ed8kY/600x799",
+    src: 'https://source.unsplash.com/epcsn8Ed8kY/600x799',
     width: 3,
     height: 4,
   },
   {
-    src: "https://source.unsplash.com/NQSWvyVRIJk/800x599",
+    src: 'https://source.unsplash.com/NQSWvyVRIJk/800x599',
     width: 4,
     height: 3,
   },
   {
-    src: "https://source.unsplash.com/zh7GEuORbUw/600x799",
+    src: 'https://source.unsplash.com/zh7GEuORbUw/600x799',
     width: 3,
     height: 4,
   },
   {
-    src: "https://source.unsplash.com/PpOHJezOalU/800x599",
+    src: 'https://source.unsplash.com/PpOHJezOalU/800x599',
     width: 4,
     height: 3,
   },
   {
-    src: "https://source.unsplash.com/I1ASdgphUH4/800x599",
+    src: 'https://source.unsplash.com/I1ASdgphUH4/800x599',
     width: 4,
     height: 3,
   },
   {
-    src: "https://source.unsplash.com/XiDA78wAZVw/600x799",
+    src: 'https://source.unsplash.com/XiDA78wAZVw/600x799',
     width: 3,
     height: 4,
   },
   {
-    src: "https://source.unsplash.com/x8xJpClTvR0/800x599",
+    src: 'https://source.unsplash.com/x8xJpClTvR0/800x599',
     width: 4,
     height: 3,
   },
   {
-    src: "https://source.unsplash.com/u9cG4cuJ6bU/4927x1000",
+    src: 'https://source.unsplash.com/u9cG4cuJ6bU/4927x1000',
     width: 4927,
     height: 1000,
   },
   {
-    src: "https://source.unsplash.com/qGQNmBE7mYw/800x599",
+    src: 'https://source.unsplash.com/qGQNmBE7mYw/800x599',
     width: 4,
     height: 3,
   },
   {
-    src: "https://source.unsplash.com/NuO6iTBkHxE/800x599",
+    src: 'https://source.unsplash.com/NuO6iTBkHxE/800x599',
     width: 4,
     height: 3,
   },
   {
-    src: "https://source.unsplash.com/pF1ug8ysTtY/600x400",
+    src: 'https://source.unsplash.com/pF1ug8ysTtY/600x400',
     width: 4,
     height: 3,
   },
   {
-    src: "https://source.unsplash.com/A-fubu9QJxE/800x533",
+    src: 'https://source.unsplash.com/A-fubu9QJxE/800x533',
     width: 4,
     height: 3,
   },
   {
-    src: "https://source.unsplash.com/5P91SF0zNsI/740x494",
+    src: 'https://source.unsplash.com/5P91SF0zNsI/740x494',
     width: 4,
     height: 3,
   },
-]
+];
 
 const Posts = (props) => {
-  const userPostUrl = "http://localhost:8080/api/posts/"
-  const userNameUrl = "http://localhost:8080/api/users/name/"
-  const [posts, setPosts] = useState([])
+  const userPostUrl = 'http://localhost:8080/api/posts/';
+  const userNameUrl = 'http://localhost:8080/api/users/name/';
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     axios.get(userPostUrl).then((response) => {
-      setPosts(response.data)
-    })
-  }, [])
+      setPosts(response.data);
+    });
+  }, []);
 
   const getPostsFiles = (fileIdArray) => {
-    let photos = []
+    let photos = [];
     fileIdArray.map((id, index) => {
       if (id.length > 0) {
         photos.push(
           {
-            src: "http://localhost:8081/api/posts/" + id,
-            srcSet: "http://localhost:8081/api/posts/" + id,
+            src: 'http://localhost:8081/api/posts/' + id,
+            srcSet: 'http://localhost:8081/api/posts/' + id,
             width: 1,
             height: 1,
           },
           {
-            src: "https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg",
-            srcSet: "https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg 500w",
+            src: 'https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg',
+            srcSet: 'https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg 500w',
             width: 1,
             height: 1,
           }
-        )
+        );
       }
-    })
-    return photos
-  }
+    });
+    return photos;
+  };
 
   return posts.map((post, index) => {
     return (
@@ -136,11 +136,11 @@ const Posts = (props) => {
           <div className='card-body'>
             <div className='container'>
               <div className='row'>
-                <Avatar size={40} src={"http://localhost:8081/api/users/profile-img/" + post.user_id} />
+                <Avatar size={40} src={'http://localhost:8081/api/users/profile-img/' + post.user_id} />
 
                 <div className='col-9 text-start'>
-                  <a className='font-weight-bold' href={"/users/" + post.user_id}>
-                    {post.user_name || "NO NAME YET"}
+                  <a className='font-weight-bold' href={'/users/' + post.user_id}>
+                    {post.user_name || 'NO NAME YET'}
                   </a>
                   <br />
                   <p className='card-text'>
@@ -152,13 +152,20 @@ const Posts = (props) => {
               <br />
               <br />
               <div className='row post-content text-start'>{post.content}</div>
+
+              {post.link && (
+                <a className='row post-content text-start' href={post.link} target='_blank'>
+                  {post.link}
+                </a>
+              )}
+
               <div className='text-start'>
                 {post.tags.map((tag) => {
                   return (
-                    <a key={tag} href={"https://google.com/" + tag}>
-                      #{tag}{" "}
+                    <a key={tag} href={'https://google.com/' + tag}>
+                      #{tag}{' '}
                     </a>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -183,9 +190,9 @@ const Posts = (props) => {
 
             <div className='row justify-content-end'>
               <div className='col-auto me-auto'>
-                <Avatar.Group maxCount={5} maxStyle={{ color: "#f56a00", backgroundColor: "#fde3cf" }}>
+                <Avatar.Group maxCount={5} maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
                   {post.noice_ids.map((id) => {
-                    return <Avatar key={id} src={"http://localhost:8081/api/users/profile-img/" + id} />
+                    return <Avatar key={id} src={'http://localhost:8081/api/users/profile-img/' + id} />;
                   })}
                 </Avatar.Group>
                 {post.noice_ids.length != 0 && (
@@ -197,20 +204,20 @@ const Posts = (props) => {
                             <a> Name </a>
                             <small className='text-muted'>and</small>
                           </React.Fragment>
-                        )
+                        );
                       } else {
-                        return <a key={id}> Name </a>
+                        return <a key={id}> Name </a>;
                       }
                     })}
                     <small className='text-muted'>Liked this</small>
                   </>
                 )}
               </div>
-              <div className='col-auto icons' style={{ paddingTop: "10px" }}>
+              <div className='col-auto icons' style={{ paddingTop: '10px' }}>
                 <Text keyboard>{post.noice_ids.length}</Text>
                 <CommentOutlined />
               </div>
-              <div className='col-auto icons' style={{ paddingTop: "10px" }}>
+              <div className='col-auto icons' style={{ paddingTop: '10px' }}>
                 <Text keyboard>{post.comment_ids.length}</Text>
                 <HeartOutlined />
               </div>
@@ -219,8 +226,8 @@ const Posts = (props) => {
         </div>
         <br />
       </div>
-    )
-  })
-}
+    );
+  });
+};
 
-export default Posts
+export default Posts;
