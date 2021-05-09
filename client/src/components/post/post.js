@@ -71,7 +71,7 @@ const Post = (props) => {
       </Form.Item>
 
       <Form.Item name='content-link' className={linkDisplayState ? 'link-input active' : 'link-input'}>
-        <LinkInput link={linkDisplayState} setLinkVal={setLinkVal} />
+        <LinkInput link={linkDisplayState} setLinkVal={setLinkVal} handleLinkChange={handleLinkChange} />
       </Form.Item>
 
       <div className='tabs-holder'>

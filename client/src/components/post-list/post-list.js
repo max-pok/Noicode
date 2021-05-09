@@ -154,7 +154,7 @@ const Posts = (props) => {
               <div className='row post-content text-start'>{post.content}</div>
 
               {post.link && (
-                <a className='row post-content text-start' href={post.link} target='_blank'>
+                <a className='post-link' href={post.link} target='_blank'>
                   {post.link}
                 </a>
               )}
