@@ -136,7 +136,7 @@ const Posts = (props) => {
           <div className='card-body'>
             <div className='container'>
               <div className='row'>
-                <Avatar size={40} src={'http://localhost:8081/api/users/profile-img/' + post.user_id} />
+                <Avatar size={40} src={'http://localhost:8081/api/users/profile-img/' + post.user_id} className='avatar' />
 
                 <div className='col-9 text-start'>
                   <a className='font-weight-bold' href={'/users/' + post.user_id}>
