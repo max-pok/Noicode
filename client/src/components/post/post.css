@@ -5,11 +5,12 @@
 
 .main-container {
   /*max width is now 40% but should be changed to 100% later when the main column is created for the page*/
-  max-width: 40%;
+  max-width: 100%;
   border: var(--clr-border);
   border-radius: 5px;
   background-color: var(--clr-bg-primary);
   position: relative;
+  background-color: #0d1117;
 }
 
 .post-holder {

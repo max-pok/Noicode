@@ -60,7 +60,7 @@ const Profile = (props) => {
               <ProfileInfo userId={userId} userInformation={userInformation} sethasEditedInfo={sethasEditedInfo} />
             </div>
             <div className="col">
-              <Posts userPosts={userPosts} />
+              <Posts userPosts={userPosts} userName={userInformation.fname + " " + userInformation.lname} />
             </div>
           </div>
         </div>

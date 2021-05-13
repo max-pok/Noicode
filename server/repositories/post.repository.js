@@ -1,4 +1,5 @@
 const Post = require("../models/post.model")
+const mongoose = require("mongoose")
 
 class PostRepository {
   constructor() {}
@@ -11,6 +12,14 @@ class PostRepository {
   async getPosts() {
     let posts = await Post.find()
     return posts || []
+  }
+
+  async getPostInformation(postId) {
+    if (mongoose.Types.ObjectId.isValid(postId)) {
+      const post = await Post.findById(postId)
+      return post
+    }
+    return null
   }
 }
 

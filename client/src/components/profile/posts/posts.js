@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { List, Divider, Avatar, Space, Button, Typography } from "antd"
+import { List, Divider, Avatar, Space, Button, Typography, Image } from "antd"
 import { MessageOutlined, LikeOutlined } from "@ant-design/icons"
 import "./posts.css"
 
 const { Text } = Typography
 
-const Posts = ({ userPosts }) => {
+const Posts = ({ userPosts, userName }) => {
   const [isRecent, setIsRecent] = useState(true)
   const [posts, setPosts] = useState([])
 
@@ -35,9 +35,18 @@ const Posts = ({ userPosts }) => {
     </Space>
   )
 
-  const PostImage = (item) => item.post_img && <img width={272} alt='logo' src={item.post_img} />
+  const PostImage = (item) =>
+    item.img[0] &&
+    item.img[0].length > 0 &&
+    item.img.map((id) => {
+      return (
+        <div key={id}>
+          <Image className='post-pic' width={272} height={150} src={"http://localhost:8081/api/posts/" + id} />
+        </div>
+      )
+    })
 
-  const PostTitle = (item) => <a href={"posts/" + item._id}>{item.title}</a>
+  const PostTitle = () => <a>{userName}</a>
 
   const PostAvatar = (item) => <Avatar src={"http://localhost:8081/api/users/profile-img/" + item.user_id} size={55} />
 
@@ -62,10 +71,8 @@ const Posts = ({ userPosts }) => {
         dataSource={getPosts()}
         renderItem={(item) => (
           <List.Item key={item.title} actions={[<LikeIcon icon={LikeOutlined} text={item.noice_ids.length} />, <CommentIcon icon={MessageOutlined} text={item.comment_ids.length} />]} extra={PostImage(item)}>
-            <List.Item.Meta avatar={PostAvatar(item)} title={PostTitle(item)} description={new Date(item.date).toDateString()} />
-            {item.content}
-            <br />
-            <br />
+            <List.Item.Meta avatar={PostAvatar(item)} title={PostTitle()} description={new Date(item.date).toDateString()} />
+            <p className='content'>{item.content}</p>
             {item.tags.map((tag, index) => {
               return (
                 <a key={index} href={"https://google.com/" + tag}>

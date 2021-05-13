@@ -81,11 +81,23 @@ const updatePictures = async (req, res) => {
  */
 const updateDetails = async (req, res, next) => {
   try {
-    await userRepository.setUserInformation(req.params.userId, req.body);
+    await userRepository.setUserInformation(req.params.userId, req.body.information);
     res.sendStatus(200);
   } catch (err) {
     res.status(400).send(err.message);
   }
 };
 
-module.exports = { updateDetails, getUserInformation, updatePictures, getUserProfileImage, getUserCoverImage };
+/**
+ * @Get
+ */
+const getUserFullName = async (req, res) => {
+  const user = await userRepository.getUserName(req.params.userId);
+  if (!user) {
+    res.status(400).send("No posts found.");
+  } else {
+    res.send(user);
+  }
+};
+
+module.exports = { updateDetails, getUserInformation, uploadAvatar, getUserProfileImage, getUserCoverImage, getUserFullName };
