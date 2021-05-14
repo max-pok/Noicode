@@ -16,8 +16,14 @@ class PostRepository {
 
   async getPostInformation(postId) {
     if (mongoose.Types.ObjectId.isValid(postId)) {
-      const post = await Post.findById(postId)
-      return post
+      return Post.findById(postId)
+    }
+    return null
+  }
+
+  async updatePost(post) {
+    if (mongoose.Types.ObjectId.isValid(post._id)) {
+      return Post.updateOne({ _id: post._id }, { noice_ids: post.noice_ids })
     }
     return null
   }
