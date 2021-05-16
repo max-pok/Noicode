@@ -112,3 +112,9 @@ h3 {
   white-space: pre-line;
   color: white;
 }
+
+@media screen and (max-width: 800px) {
+  .avatar {
+    display: none;
+  }
+}
