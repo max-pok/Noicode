@@ -203,7 +203,7 @@ const Posts = (props) => {
               </div>
             </div>
           </div>
-          {post.img[0] && post.img[0].length > 0 && <Image src={"http://localhost:8081/api/posts/" + post.img[0]} />}
+          {post.img[0] && post.img[0].length > 0 ? <Image src={"http://localhost:8081/api/posts/" + post.img[0]} /> : <Divider className='post-divider'></Divider>}
           {/* {post.img[0] && post.img[0].length > 0 ? <Gallery photos={getPostsFiles(post.img)} setComponentWidth={false} /> : <Divider className='post-divider' plain></Divider>} */}
 
           <div className='container'>
