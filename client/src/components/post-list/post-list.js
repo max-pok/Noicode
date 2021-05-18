@@ -96,17 +96,58 @@ export const photos = [
 ];
 
 const Posts = (props) => {
-  const userPostUrl = "http://localhost:8080/api/posts/";
+  const userPostUrl = "http://localhost:8080/api/posts/"
+  const [posts, setPosts] = useState([])
+  const [userId, setUserId] = useState(localStorage.getItem("userId"))
   const userNameUrl = "http://localhost:8080/api/users/name/";
   // const userInfoUrl = "http://localhost:8080/api/users/" + post.user_id;
-  const [user, setUsers] = useState([]);
-  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     axios.get(userPostUrl).then((response) => {
-      setPosts(response.data);
-    });
-  }, []);
+      const newPosts = response.data.map((post) => {
+        return { ...post, liked: post.noice_ids.indexOf(userId) >= 0 ? true : false }
+      })
+      setPosts(newPosts)
+    })
+  }, [])
+
+
+  const like = (post) => {
+    post.liked = !post.liked
+    if (post.liked) {
+      // add userId to noice_ids array
+      post.noice_ids.push(userId)
+    } else {
+      // remove userId to noice_ids array
+      const index = post.noice_ids.indexOf(userId)
+      if (index > -1) {
+        post.noice_ids.splice(index, 1)
+      }
+    }
+    // update post array
+    setPosts(posts.map((p) => (p._id == post._id ? post : p)))
+
+    // update database
+    axios
+      .post(userPostUrl + "update", post)
+      .then((response) => {
+        // ..
+      })
+      .catch((err) => {
+        post.liked = !post.liked
+        if (post.liked) {
+          // add userId to noice_ids array
+          post.noice_ids.push(userId)
+        } else {
+          // remove userId to noice_ids array
+          const index = post.noice_ids.indexOf(userId)
+          if (index > -1) {
+            post.noice_ids.splice(index, 1)
+          }
+        }
+        setPosts(posts.map((p) => (p._id == post._id ? post : p)))
+      })
+  }
 
   const getPostsFiles = (fileIdArray) => {
     let photos = [];
@@ -183,15 +224,9 @@ const Posts = (props) => {
               </div>
             </div>
           </div>
-          {/* {post.img[0] && post.img[0].length > 0 && <Image src={"http://localhost:8081/api/posts/" + post.img[0]} />} */}
-          {post.img[0] && post.img[0].length > 0 ? (
-            <Gallery
-              photos={getPostsFiles(post.img)}
-              setComponentWidth={false}
-            />
-          ) : (
-            <Divider className="post-divider" plain></Divider>
-          )}
+          {post.img[0] && post.img[0].length > 0 ? <Image src={"http://localhost:8081/api/posts/" + post.img[0]} /> : <Divider className='post-divider'></Divider>}
+          {/* {post.img[0] && post.img[0].length > 0 ? <Gallery photos={getPostsFiles(post.img)} setComponentWidth={false} /> : <Divider className='post-divider' plain></Divider>} */}
+
 
           <div className="container">
             <div className="row justify-content-end">
@@ -201,9 +236,10 @@ const Posts = (props) => {
                   <CommentOutlined className="a-text" />
                 </div>
               </div>
-              <div className="col-auto">
-                <div className="circle-like">
-                  <HeartOutlined className="a-text" />
+              <div className='col-auto'>
+                <div className={"circle-like " + (post.liked ? "active" : "")} onClick={() => like(post)}>
+                  <HeartOutlined className='a-text' />
+
                 </div>
               </div>
             </div>
@@ -243,12 +279,13 @@ const Posts = (props) => {
                   </>
                 )}
               </div>
-              <div className="col-auto icons" style={{ paddingTop: "10px" }}>
-                <Text keyboard>{post.noice_ids.length}</Text>
+              <div className='col-auto icons' style={{ paddingTop: "10px" }}>
+                <Text keyboard>{post.comment_ids.length}</Text>
                 <CommentOutlined />
               </div>
-              <div className="col-auto icons" style={{ paddingTop: "10px" }}>
-                <Text keyboard>{post.comment_ids.length}</Text>
+              <div className='col-auto icons' style={{ paddingTop: "10px" }}>
+                <Text keyboard>{post.noice_ids.length}</Text>
+
                 <HeartOutlined />
               </div>
             </div>

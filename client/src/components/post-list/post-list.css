@@ -50,6 +50,11 @@ h3 {
   top: -20px;
   box-shadow: 4px 0px 8px 1px rgba(0, 0, 0.1, 0.3);
 }
+
+.circle-like:hover {
+  cursor: pointer;
+}
+
 .circle-like.active {
   border-radius: 50%;
   width: 50px;
@@ -86,11 +91,6 @@ h3 {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-}
-
-.divider-post {
-  position: relative;
-  top: -30px;
 }
 
 .font-weight-bold {

@@ -40,6 +40,13 @@ const getPosts = async (req, res) => {
 /**
  * @Get
  */
+const updatePost = async (req, res, next) => {
+  let update = await postRepository.updatePost(req.body)
+}
+
+/**
+ * @Get
+ */
 const getPostImage = async (req, res) => {
   await gfs
     .find({ _id: mongoose.Types.ObjectId(req.params.postImageId) })
@@ -91,4 +98,4 @@ const uploadPost = async (req, res) => {
   }
 };
 
-module.exports = { getUserPosts, getPosts, getPostImage, uploadPost };
+module.exports = { getUserPosts, getPosts, getPostImage, uploadPost, updatePost};
