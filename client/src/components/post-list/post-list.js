@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import './post-list.css';
 import { Avatar, Image, Typography, Divider } from 'antd';
 import { CommentOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons';
@@ -5,6 +6,15 @@ import React, { useState, useEffect } from 'react';
 // import Gallery from 'react-photo-gallery';
 import axios from 'axios';
 
+=======
+import "./post-list.css";
+import { Avatar, Image, Typography, Divider } from "antd";
+import { CommentOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import Gallery from "react-photo-gallery";
+import axios from "axios";
+import Gravatar from "gravatar";
+>>>>>>> 19164d418ffb6b7a6e96528e3cb371788d254435
 const { Text } = Typography;
 
 export const photos = [
@@ -96,6 +106,7 @@ export const photos = [
 ];
 
 const Posts = (props) => {
+<<<<<<< HEAD
   const userPostUrl = 'http://localhost:8080/api/posts/';
   const userNameUrl = 'http://localhost:8080/api/users/name/';
   const [posts, setPosts] = useState([]);
@@ -115,6 +126,60 @@ const Posts = (props) => {
     setPosts(props.posts);
     props.setClicked(!props.clicked);
   };
+=======
+  const userPostUrl = "http://localhost:8080/api/posts/"
+  const [posts, setPosts] = useState([])
+  const [userId, setUserId] = useState(localStorage.getItem("userId"))
+  const userNameUrl = "http://localhost:8080/api/users/name/";
+  // const userInfoUrl = "http://localhost:8080/api/users/" + post.user_id;
+
+  useEffect(() => {
+    axios.get(userPostUrl).then((response) => {
+      const newPosts = response.data.map((post) => {
+        return { ...post, liked: post.noice_ids.indexOf(userId) >= 0 ? true : false }
+      })
+      setPosts(newPosts)
+    })
+  }, [])
+>>>>>>> 19164d418ffb6b7a6e96528e3cb371788d254435
+
+
+  const like = (post) => {
+    post.liked = !post.liked
+    if (post.liked) {
+      // add userId to noice_ids array
+      post.noice_ids.push(userId)
+    } else {
+      // remove userId to noice_ids array
+      const index = post.noice_ids.indexOf(userId)
+      if (index > -1) {
+        post.noice_ids.splice(index, 1)
+      }
+    }
+    // update post array
+    setPosts(posts.map((p) => (p._id == post._id ? post : p)))
+
+    // update database
+    axios
+      .post(userPostUrl + "update", post)
+      .then((response) => {
+        // ..
+      })
+      .catch((err) => {
+        post.liked = !post.liked
+        if (post.liked) {
+          // add userId to noice_ids array
+          post.noice_ids.push(userId)
+        } else {
+          // remove userId to noice_ids array
+          const index = post.noice_ids.indexOf(userId)
+          if (index > -1) {
+            post.noice_ids.splice(index, 1)
+          }
+        }
+        setPosts(posts.map((p) => (p._id == post._id ? post : p)))
+      })
+  }
 
   const getPostsFiles = (fileIdArray) => {
     let photos = [];
@@ -128,8 +193,14 @@ const Posts = (props) => {
             height: 1,
           },
           {
+<<<<<<< HEAD
             src: 'https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg',
             srcSet: 'https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg 500w',
+=======
+            src: "https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg",
+            srcSet:
+              "https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg 500w",
+>>>>>>> 19164d418ffb6b7a6e96528e3cb371788d254435
             width: 1,
             height: 1,
           }
@@ -146,11 +217,29 @@ const Posts = (props) => {
           <div className="card-body">
             <div className="container">
               <div className="row">
+<<<<<<< HEAD
                 <Avatar size={40} src={'http://localhost:8081/api/users/profile-img/' + post.user_id} />
 
                 <div className="col-9 text-start">
                   <a className="font-weight-bold" href={'/users/' + post.user_id}>
                     {post.user_name || 'NO NAME YET'}
+=======
+                <Avatar
+                  size={40}
+                  src={
+                    "http://localhost:8081/api/users/profile-img/" +
+                    post.user_id
+                  }
+                  className="avatar"
+                />
+
+                <div className="col-9 text-start">
+                  <a
+                    className="font-weight-bold"
+                    href={"/users/" + post.user_id}
+                  >
+                    {post.fname || "NO NAME YET"}
+>>>>>>> 19164d418ffb6b7a6e96528e3cb371788d254435
                   </a>
                   <br />
                   <p className="card-text">
@@ -162,6 +251,16 @@ const Posts = (props) => {
               <br />
               <br />
               <div className="row post-content text-start">{post.content}</div>
+<<<<<<< HEAD
+=======
+
+              {post.link && (
+                <a className="post-link" href={post.link} target="_blank">
+                  {post.link}
+                </a>
+              )}
+
+>>>>>>> 19164d418ffb6b7a6e96528e3cb371788d254435
               <div className="text-start">
                 {post.tags.map((tag) => {
                   return (
@@ -173,8 +272,15 @@ const Posts = (props) => {
               </div>
             </div>
           </div>
+<<<<<<< HEAD
           {/* {post.img[0] && post.img[0].length > 0 && <Image src={'http://localhost:8081/api/posts/' + post.img[0]} />}
           {post.img[0] && post.img[0].length > 0 ? <Gallery photos={getPostsFiles(post.img)} setComponentWidth={false} /> : <Divider className="post-divider" plain></Divider>} */}
+=======
+          {post.img[0] && post.img[0].length > 0 ? <Image src={"http://localhost:8081/api/posts/" + post.img[0]} /> : <Divider className='post-divider'></Divider>}
+          {/* {post.img[0] && post.img[0].length > 0 ? <Gallery photos={getPostsFiles(post.img)} setComponentWidth={false} /> : <Divider className='post-divider' plain></Divider>} */}
+
+
+>>>>>>> 19164d418ffb6b7a6e96528e3cb371788d254435
           <div className="container">
             <div className="row justify-content-end">
               <div className="col-auto">
@@ -183,18 +289,41 @@ const Posts = (props) => {
                   <CommentOutlined className="a-text" />
                 </div>
               </div>
+<<<<<<< HEAD
               <div className="col-auto">
                 <div className="circle-like">
                   <HeartOutlined className="a-text" />
+=======
+              <div className='col-auto'>
+                <div className={"circle-like " + (post.liked ? "active" : "")} onClick={() => like(post)}>
+                  <HeartOutlined className='a-text' />
+
+>>>>>>> 19164d418ffb6b7a6e96528e3cb371788d254435
                 </div>
               </div>
             </div>
 
             <div className="row justify-content-end">
               <div className="col-auto me-auto">
+<<<<<<< HEAD
                 <Avatar.Group maxCount={5} maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
                   {post.noice_ids.map((id) => {
                     return <Avatar key={id} src={'http://localhost:8081/api/users/profile-img/' + id} />;
+=======
+                <Avatar.Group
+                  maxCount={5}
+                  maxStyle={{ color: "#f56a00", backgroundColor: "#fde3cf" }}
+                >
+                  {post.noice_ids.map((id) => {
+                    return (
+                      <Avatar
+                        key={id}
+                        src={
+                          "http://localhost:8081/api/users/profile-img/" + id
+                        }
+                      />
+                    );
+>>>>>>> 19164d418ffb6b7a6e96528e3cb371788d254435
                   })}
                 </Avatar.Group>
                 {post.noice_ids.length != 0 && (
@@ -215,12 +344,22 @@ const Posts = (props) => {
                   </>
                 )}
               </div>
+<<<<<<< HEAD
               <div className="col-auto icons" style={{ paddingTop: '10px' }}>
                 <Text keyboard>{post.noice_ids.length}</Text>
                 <CommentOutlined />
               </div>
               <div className="col-auto icons" style={{ paddingTop: '10px' }}>
                 <Text keyboard>{post.comment_ids.length}</Text>
+=======
+              <div className='col-auto icons' style={{ paddingTop: "10px" }}>
+                <Text keyboard>{post.comment_ids.length}</Text>
+                <CommentOutlined />
+              </div>
+              <div className='col-auto icons' style={{ paddingTop: "10px" }}>
+                <Text keyboard>{post.noice_ids.length}</Text>
+
+>>>>>>> 19164d418ffb6b7a6e96528e3cb371788d254435
                 <HeartOutlined />
               </div>
             </div>

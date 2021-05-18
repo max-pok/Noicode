@@ -9,24 +9,27 @@ const Profile = (props) => {
   const userInfoUrl = "http://localhost:8080/api/users/" + props.match.params.userId
   const userPostsUrl = "http://localhost:8080/api/posts/" + props.match.params.userId
 
-  const [coverImg, setCoverImg] = useState("http://localhost:8081/api/users/cover-img/" + props.match.params.userId)
-  const [profileImg, setProfileImg] = useState("http://localhost:8081/api/users/profile-img/" + props.match.params.userId)
+  const coverImg = "http://localhost:8081/api/users/cover-img/" + props.match.params.userId
+  const profileImg = "http://localhost:8081/api/users/profile-img/" + props.match.params.userId
 
   const [userInformation, setUserInformation] = useState({})
   const [userPosts, setUserPosts] = useState([])
-  const [userId, setUserId] = useState(props.match.params.userId)
+  const userId = props.match.params.userId
 
   useEffect(() => {
-    // get user data based on url param.
+    // get user posts.
     axios
       .get(userPostsUrl)
       .then((response) => {
-        setUserPosts(response.data.posts)
+        const newPosts = response.data.posts.map((post) => {
+          return { ...post, liked: post.noice_ids.indexOf(userId) >= 0 ? true : false }
+        })
+        setUserPosts(newPosts)
       })
       .catch((err) => {
         console.log(err)
       })
-    // get user posts.
+    // get user information.
     axios
       .get(userInfoUrl)
       .then((response) => {
@@ -51,7 +54,7 @@ const Profile = (props) => {
               <ProfileInfo userId={userId} userInformation={userInformation} />
             </div>
             <div className='col'>
-              <Posts userPosts={userPosts} userName={userInformation.fname + " " + userInformation.lname} />
+              <Posts userPosts={userPosts} userId={userId} userName={userInformation.fname + " " + userInformation.lname} />
             </div>
           </div>
         </div>

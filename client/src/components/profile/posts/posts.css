@@ -2,6 +2,10 @@
   color: aliceblue;
 }
 
+.like-icon.active {
+  color: red;
+}
+
 .like-icon:hover {
   color: red;
 }
