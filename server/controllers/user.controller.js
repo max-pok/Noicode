@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const config = require("../config/mongoose.config");
 const UserRepository = require("../repositories/user.repository");
+const multer = require("../utils/multer");
+
 const userRepository = new UserRepository();
 
 const connect = mongoose.createConnection(config.url, config.options);
 let gfs;
 
-connect.on("open", () => {
+connect.once("open", () => {
   // initialize GridFS
   gfs = new mongoose.mongo.GridFSBucket(connect.db, {
     bucketName: "users",
@@ -100,4 +102,4 @@ const getUserFullName = async (req, res) => {
   }
 };
 
-module.exports = { updateDetails, getUserInformation, uploadAvatar, getUserProfileImage, getUserCoverImage, getUserFullName };
+module.exports = { updateDetails, getUserInformation, getUserProfileImage, getUserCoverImage, getUserFullName };

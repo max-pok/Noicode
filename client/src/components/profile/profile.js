@@ -42,16 +42,26 @@ const Profile = (props) => {
       });
   }, [hasEditedInfo]);
 
+  const handleImageChange = (event) => {
+    event.preventDefault();
+    if (event.target.files && event.target.files[0]) {
+      console.log(event.target.files[0]);
+      console.log(URL.createObjectURL(event.target.files[0]));
+    }
+  };
+
   return (
     <div className="container">
       <div className="row justify-content-md-center">
-        <Upload name="cover" showUploadList={false} accept="image/*" maxCount={1} action={uploadPicture} headers={{ picture_type: "cover" }} onChange={(info) => console.log(info.file.originFileObj)}>
+        <input accept="image/*" onChange={handleImageChange} id="upload-cover" type="file" style={{ display: "none" }} />
+        <label htmlFor="upload-cover">
           <Avatar className="cover-pic" alt="cover" src={coverImg} />
-        </Upload>
+        </label>
         <div className="profile-pic">
-          <Upload name="avatar" showUploadList={false} accept="image/*" maxCount={1} action={uploadPicture} headers={{ picture_type: "avatar" }}>
+          <input accept="image/*" onChange={handleImageChange} id="upload-avatar" type="file" style={{ display: "none" }} />
+          <label htmlFor="upload-avatar">
             <Avatar className="avatar-pic" size={140} alt="avatar" src={profileImg} />
-          </Upload>
+          </label>
           {userInformation.fname && userInformation.lname && <h3> {userInformation.fname + " " + userInformation.lname} </h3>}
           {userInformation.user_profession && <p> {userInformation.user_profession} </p>}
 
