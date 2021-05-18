@@ -1,11 +1,11 @@
-import "./post-list.css"
-import { Avatar, Image, Typography, Divider } from "antd"
-import { CommentOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons"
-import React, { useState, useEffect } from "react"
-import Gallery from "react-photo-gallery"
-import axios from "axios"
-
-const { Text } = Typography
+import "./post-list.css";
+import { Avatar, Image, Typography, Divider } from "antd";
+import { CommentOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import Gallery from "react-photo-gallery";
+import axios from "axios";
+import Gravatar from "gravatar";
+const { Text } = Typography;
 
 export const photos = [
   {
@@ -93,12 +93,14 @@ export const photos = [
     width: 4,
     height: 3,
   },
-]
+];
 
 const Posts = (props) => {
   const userPostUrl = "http://localhost:8080/api/posts/"
   const [posts, setPosts] = useState([])
   const [userId, setUserId] = useState(localStorage.getItem("userId"))
+  const userNameUrl = "http://localhost:8080/api/users/name/";
+  // const userInfoUrl = "http://localhost:8080/api/users/" + post.user_id;
 
   useEffect(() => {
     axios.get(userPostUrl).then((response) => {
@@ -108,6 +110,7 @@ const Posts = (props) => {
       setPosts(newPosts)
     })
   }, [])
+
 
   const like = (post) => {
     post.liked = !post.liked
@@ -147,7 +150,7 @@ const Posts = (props) => {
   }
 
   const getPostsFiles = (fileIdArray) => {
-    let photos = []
+    let photos = [];
     fileIdArray.map((id, index) => {
       if (id.length > 0) {
         photos.push(
@@ -159,46 +162,64 @@ const Posts = (props) => {
           },
           {
             src: "https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg",
-            srcSet: "https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg 500w",
+            srcSet:
+              "https://stackify.com/wp-content/uploads/2018/09/Java-Debugging-Tips-1280x720.jpg 500w",
             width: 1,
             height: 1,
           }
-        )
+        );
       }
-    })
-    return photos
-  }
+    });
+    return photos;
+  };
 
   return posts.map((post, index) => {
     return (
       <div key={index}>
-        <div className='card'>
-          <div className='card-body'>
-            <div className='container'>
-              <div className='row'>
-                <Avatar size={40} src={"http://localhost:8081/api/users/profile-img/" + post.user_id} />
+        <div className="card">
+          <div className="card-body">
+            <div className="container">
+              <div className="row">
+                <Avatar
+                  size={40}
+                  src={
+                    "http://localhost:8081/api/users/profile-img/" +
+                    post.user_id
+                  }
+                  className="avatar"
+                />
 
-                <div className='col-9 text-start'>
-                  <a className='font-weight-bold' href={"/users/" + post.user_id}>
-                    {post.user_name || "NO NAME YET"}
+                <div className="col-9 text-start">
+                  <a
+                    className="font-weight-bold"
+                    href={"/users/" + post.user_id}
+                  >
+                    {post.fname || "NO NAME YET"}
                   </a>
                   <br />
-                  <p className='card-text'>
-                    <small className='text-muted'>{post.date}</small>
+                  <p className="card-text">
+                    <small className="text-muted">{post.date}</small>
                   </p>
                 </div>
                 {/* <div className='col text-end'>save icon</div> */}
               </div>
               <br />
               <br />
-              <div className='row post-content text-start'>{post.content}</div>
-              <div className='text-start'>
+              <div className="row post-content text-start">{post.content}</div>
+
+              {post.link && (
+                <a className="post-link" href={post.link} target="_blank">
+                  {post.link}
+                </a>
+              )}
+
+              <div className="text-start">
                 {post.tags.map((tag) => {
                   return (
                     <a key={tag} href={"https://google.com/" + tag}>
                       #{tag}{" "}
                     </a>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -206,26 +227,38 @@ const Posts = (props) => {
           {post.img[0] && post.img[0].length > 0 ? <Image src={"http://localhost:8081/api/posts/" + post.img[0]} /> : <Divider className='post-divider'></Divider>}
           {/* {post.img[0] && post.img[0].length > 0 ? <Gallery photos={getPostsFiles(post.img)} setComponentWidth={false} /> : <Divider className='post-divider' plain></Divider>} */}
 
-          <div className='container'>
-            <div className='row justify-content-end'>
-              <div className='col-auto'>
-                <div className='circle-comment'>
+
+          <div className="container">
+            <div className="row justify-content-end">
+              <div className="col-auto">
+                <div className="circle-comment">
                   {/* <p className='a-text'>c</p> */}
-                  <CommentOutlined className='a-text' />
+                  <CommentOutlined className="a-text" />
                 </div>
               </div>
               <div className='col-auto'>
                 <div className={"circle-like " + (post.liked ? "active" : "")} onClick={() => like(post)}>
                   <HeartOutlined className='a-text' />
+
                 </div>
               </div>
             </div>
 
-            <div className='row justify-content-end'>
-              <div className='col-auto me-auto'>
-                <Avatar.Group maxCount={5} maxStyle={{ color: "#f56a00", backgroundColor: "#fde3cf" }}>
+            <div className="row justify-content-end">
+              <div className="col-auto me-auto">
+                <Avatar.Group
+                  maxCount={5}
+                  maxStyle={{ color: "#f56a00", backgroundColor: "#fde3cf" }}
+                >
                   {post.noice_ids.map((id) => {
-                    return <Avatar key={id} src={"http://localhost:8081/api/users/profile-img/" + id} />
+                    return (
+                      <Avatar
+                        key={id}
+                        src={
+                          "http://localhost:8081/api/users/profile-img/" + id
+                        }
+                      />
+                    );
                   })}
                 </Avatar.Group>
                 {post.noice_ids.length != 0 && (
@@ -235,14 +268,14 @@ const Posts = (props) => {
                         return (
                           <React.Fragment key={id}>
                             <a> Name </a>
-                            <small className='text-muted'>and</small>
+                            <small className="text-muted">and</small>
                           </React.Fragment>
-                        )
+                        );
                       } else {
-                        return <a key={id}> Name </a>
+                        return <a key={id}> Name </a>;
                       }
                     })}
-                    <small className='text-muted'>Liked this</small>
+                    <small className="text-muted">Liked this</small>
                   </>
                 )}
               </div>
@@ -252,6 +285,7 @@ const Posts = (props) => {
               </div>
               <div className='col-auto icons' style={{ paddingTop: "10px" }}>
                 <Text keyboard>{post.noice_ids.length}</Text>
+
                 <HeartOutlined />
               </div>
             </div>
@@ -259,8 +293,8 @@ const Posts = (props) => {
         </div>
         <br />
       </div>
-    )
-  })
-}
+    );
+  });
+};
 
-export default Posts
+export default Posts;
