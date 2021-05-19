@@ -6,7 +6,6 @@ import ProfileDropDownMenu from './profile-drop-down-menu';
 import NotificationsDropDownMenu from './notifications-drop-down-menu';
 import axios from 'axios';
 import { Navbar, Nav } from 'react-bootstrap';
-import Posts from '../post-list/post-list';
 
 const { Search } = Input;
 
@@ -26,11 +25,19 @@ const Navigation = (props) => {
           if (post.tags.includes(elem)) {
             posts.push(post);
           }
-          props.setPosts(posts);
-          props.setClicked(!props.clicked);
         });
       });
+      props.setFilteredPosts(posts);
+      props.setClicked(!props.clicked);
     });
+  };
+
+  const onChange = (event) => {
+    if (event.target.value == '') {
+      axios.get(userPostUrl).then((response) => {
+        props.setFilteredPosts(response.data);
+      });
+    }
   };
 
   return (
@@ -48,7 +55,7 @@ const Navigation = (props) => {
         </Nav>
         <Nav className="justify-content-end" style={{ width: '100%' }}>
           <Nav.Item className="d-flex">
-            <Search className="nav-search" placeholder="Search..." allowClear onSearch={onSearch} size="medium" />
+            <Search className="nav-search" placeholder="Search..." allowClear onSearch={onSearch} onChange={onChange} size="medium" />
           </Nav.Item>
           {props.token && (
             <Nav.Item className="d-flex">

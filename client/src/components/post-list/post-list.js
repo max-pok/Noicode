@@ -2,9 +2,9 @@ import './post-list.css';
 import { Avatar, Image, Typography, Divider } from 'antd';
 import { CommentOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons';
 import React, { useState, useEffect } from 'react';
-import Gallery from 'react-photo-gallery';
+
 import axios from 'axios';
-import Gravatar from 'gravatar';
+
 const { Text } = Typography;
 
 export const photos = [
@@ -99,22 +99,13 @@ const Posts = (props) => {
   const userPostUrl = 'http://localhost:8080/api/posts/';
   const userNameUrl = 'http://localhost:8080/api/users/name/';
   const [posts, setPosts] = useState([]);
-  console.log(props.posts, props.clicked, props.setClicked);
+  const [userId, setUserId] = useState(localStorage.getItem('userId'));
 
   useEffect(() => {
-    if (!props.clicked) {
-      axios.get(userPostUrl).then((response) => {
-        setPosts(response.data);
-      });
-    } else {
-      handler();
+    if (props.filteredPosts) {
+      setPosts(props.filteredPosts);
     }
-  }, [props.clicked]);
-
-  const handler = () => {
-    setPosts(props.posts);
-    props.setClicked(!props.clicked);
-  };
+  }, [props.filteredPosts]);
 
   const like = (post) => {
     post.liked = !post.liked;
