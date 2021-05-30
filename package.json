@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/max-pok/Noicode#readme",
   "dependencies": {
-    "concurrently": "^6.0.0"
+    "all": "^0.0.0",
+    "concurrently": "^6.0.0",
+    "react-open-weather": "^1.1.5"
   }
 }

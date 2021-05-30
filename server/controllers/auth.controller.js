@@ -1,6 +1,6 @@
-const AuthRepository = require("../repositories/auth.repository");
-const { generateAuthToken } = require("../utils/token");
-const gravatar = require("gravatar");
+const AuthRepository = require('../repositories/auth.repository');
+const { generateAuthToken } = require('../utils/token');
+// const gravatar = require("gravatar");
 const authRepository = new AuthRepository();
 
 /**
@@ -9,7 +9,7 @@ const authRepository = new AuthRepository();
 const login = async (req, res) => {
   const user = await authRepository.findUser(req.body.email, req.body.password);
   if (!user) {
-    res.status(400).send("No such user.");
+    res.status(400).send('No such user.');
   } else {
     const token = await generateAuthToken(user);
     res.send({ token, userId: user._id });
@@ -19,15 +19,9 @@ const login = async (req, res) => {
 const register = async (req, res, next) => {
   const { email, password, firstName, lastName, dob } = req.body;
   try {
-    const user = await authRepository.saveUser(
-      email,
-      password,
-      firstName,
-      lastName,
-      dob
-    );
+    const user = await authRepository.saveUser(email, password, firstName, lastName, dob);
     if (!user) {
-      return res.status(409).send("Email already exists.");
+      return res.status(409).send('Email already exists.');
     }
 
     const token = await generateAuthToken(user);

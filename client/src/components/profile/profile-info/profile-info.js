@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react"
-import { List, Divider, Space, Button } from "antd"
-import { faMapMarkerAlt, faGraduationCap, faGlobeAmericas, faBuilding } from "@fortawesome/free-solid-svg-icons"
-import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import React, { useState, useEffect } from "react";
+import { List, Divider, Space, Button, Input, Form } from "antd";
+import { faMapMarkerAlt, faGraduationCap, faGlobeAmericas, faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import "./profile-info.css";
 
 const ProfileInfo = (props) => {
-  const [isCurrentUser, setIsCurrentUser] = useState(false)
-  const [information, setInformation] = useState([])
+  const updateUrl = "http://localhost:8080/api/users/update/info";
+
+  const [isCurrentUser, setIsCurrentUser] = useState(false);
+  const [information, setInformation] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
 
   const data = [
     {
@@ -26,57 +31,105 @@ const ProfileInfo = (props) => {
     },
     {
       title: "Lives in",
-      description: information.lives_at || "-",
+      description: information.lives_in || "-",
       icon: <FontAwesomeIcon icon={faMapMarkerAlt} />,
     },
     {
       title: "GitHub",
-      description: information.github_link || "-",
+      description: information.github || "-",
       icon: <FontAwesomeIcon icon={faGithub} />,
+      rules: { link: "https://github.com/" },
     },
     {
       title: "LinkedIn",
-      description: information.linkedin_link || "-",
+      description: information.linkedin || "-",
       icon: <FontAwesomeIcon icon={faLinkedinIn} />,
+      rules: { link: "https://linkedin.com/in/" },
     },
-  ]
+  ];
+
+  const handleChanges = (fields) => {
+    const newInformation = {};
+    Object.keys(fields).forEach((field) => {
+      const value = fields[field];
+      if (value) {
+        newInformation[field] = value;
+      }
+    });
+    sendInformation(newInformation);
+  };
+
+  const sendInformation = (information) => {
+    axios
+      .post(updateUrl + `/${props.userId}`, information)
+      .then((response) => {
+        document.getElementById("form").reset();
+        setIsEditing(false);
+        props.sethasEditedInfo(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     // checks if the profile page belongs to the logged in user.
-    setIsCurrentUser(props.userId === localStorage.getItem("userId"))
+    setIsCurrentUser(props.userId === localStorage.getItem("userId"));
 
     if (props.userInformation) {
-      let result = Object.keys(props.userInformation).map((key, index) => [key, props.userInformation[key]])
-      setInformation(result)
+      setInformation(props.userInformation);
+      console.log(props.userInformation);
+      props.sethasEditedInfo(false);
     }
-  }, [props.userInformation])
+  }, [props.userInformation]);
 
   return (
     <>
-      <Divider orientation='center'>Information</Divider>
-      {isCurrentUser && (
-        <div className='text-start'>
-          <Space>
-            <Button>Edit</Button>
-          </Space>
-        </div>
-      )}
-      <br />
-      <List
-        itemLayout='horizontal'
-        bordered
-        dataSource={data}
-        renderItem={(item) =>
-          item.description && (
-            <List.Item>
-              <List.Item.Meta title={item.title} description={item.description} />
-              {item.icon}
-            </List.Item>
-          )
-        }
-      />
-    </>
-  )
-}
+      <Divider orientation="center">Information</Divider>
+      <Form onFinish={handleChanges} id="form">
+        {isCurrentUser && (
+          <div className="text-start">
+            <Space>
+              <Button onClick={() => setIsEditing(!isEditing)}>{!isEditing ? "Edit" : "Undo"}</Button>
+              {isEditing ? <Button htmlType="submit">Done</Button> : " "}
+            </Space>
+          </div>
+        )}
+        <br />
 
-export default ProfileInfo
+        <List
+          itemLayout="horizontal"
+          bordered
+          dataSource={data}
+          renderItem={(item) =>
+            item.description && (
+              <List.Item>
+                {!isEditing ? (
+                  <List.Item.Meta
+                    title={item.title}
+                    description={
+                      item.rules && item.rules.link ? (
+                        <a href={`${item.rules.link}${item.description}`} target="_blank">
+                          {item.description}
+                        </a>
+                      ) : (
+                        item.description
+                      )
+                    }
+                  />
+                ) : (
+                  <Form.Item label={item.title} name={item.title.toLowerCase().split(" ").join("_")} className="form-item">
+                    <Input addonBefore={item.rules && item.rules.link && `${item.rules.link}`} name={item.title.toLowerCase().split(" ").join("_")} placeholder={item.description} />
+                  </Form.Item>
+                )}
+                {item.icon}
+              </List.Item>
+            )
+          }
+        />
+      </Form>
+    </>
+  );
+};
+
+export default ProfileInfo;
