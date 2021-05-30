@@ -101,4 +101,16 @@ const updateDetails = async (req, res, next) => {
   }
 };
 
+/**
+ * @Get
+ */
+const getUserFullName = async (req, res) => {
+  const user = await userRepository.getUserName(req.params.userId);
+  if (!user) {
+    res.status(400).send("No posts found.");
+  } else {
+    res.send(user);
+  }
+};
+
 module.exports = { updateDetails, getUserInformation, uploadProfilePicture, uploadCoverPicture, getUserProfileImage, getUserCoverImage };

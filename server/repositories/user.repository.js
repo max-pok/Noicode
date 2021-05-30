@@ -3,7 +3,6 @@ const { UserFile } = require('../models/file.model');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
-
 class UserRepository {
   constructor() {}
 
@@ -26,7 +25,6 @@ class UserRepository {
     const user = await User.findByIdAndUpdate(userId, pictures);
     if (!user) {
       throw 'User not found';
-    }
   }
 
   async setUserInformation(userId, information) {

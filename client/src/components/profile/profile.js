@@ -13,7 +13,6 @@ const Profile = (props) => {
   const userPostsUrl = 'http://localhost:8080/api/posts/' + props.match.params.userId;
   const uploadCoverPicture = `http://localhost:8081/api/users/update/coverPictures/${props.match.params.userId}`;
   const uploadProfilePicture = `http://localhost:8081/api/users/update/profilePictures/${props.match.params.userId}`;
-
   const coverImg = 'http://localhost:8081/api/users/cover-img/' + props.match.params.userId;
   const profileImg = 'http://localhost:8081/api/users/profile-img/' + props.match.params.userId;
 
@@ -23,16 +22,19 @@ const Profile = (props) => {
   const [hasEditedInfo, sethasEditedInfo] = useState(false);
 
   useEffect(() => {
-    // get user data based on url param.
+    // get user posts.
     axios
       .get(userPostsUrl)
       .then((response) => {
-        setUserPosts(response.data.posts);
+        const newPosts = response.data.posts.map((post) => {
+          return { ...post, liked: post.noice_ids.indexOf(userId) >= 0 ? true : false }
+        })
+        setUserPosts(newPosts)
       })
       .catch((err) => {
-        console.log(err);
-      });
-    // get user posts.
+        console.log(err)
+      })
+    // get user information.
     axios
       .get(userInfoUrl)
       .then((response) => {
@@ -68,8 +70,8 @@ const Profile = (props) => {
             <div className="col col-lg-3">
               <ProfileInfo userId={userId} userInformation={userInformation} sethasEditedInfo={sethasEditedInfo} />
             </div>
-            <div className="col">
-              <Posts userPosts={userPosts} />
+            <div className='col'>
+              <Posts userPosts={userPosts} userId={userId} userName={userInformation.fname + " " + userInformation.lname} />
             </div>
           </div>
         </div>

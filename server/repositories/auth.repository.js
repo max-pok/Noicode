@@ -2,7 +2,6 @@ const User = require('../models/user.model');
 const { UserFile } = require('../models/file.model');
 const fs = require('fs');
 const path = require('path');
-
 class AuthRepository {
   constructor() {}
 
@@ -39,6 +38,7 @@ class AuthRepository {
     await userFileCover.upload(fileStream);
 
     userFileAvatar.filename = 'default_avatar.png';
+
     await userFileAvatar.upload(fileStream2);
   }
 }
