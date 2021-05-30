@@ -1,6 +1,6 @@
-const mongoose = require("mongoose")
-const { decrypt } = require("../utils/crypto")
-const bcrypt = require("bcrypt")
+const mongoose = require("mongoose");
+const { decrypt } = require("../utils/crypto");
+const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema({
   email: {
@@ -38,29 +38,29 @@ const userSchema = mongoose.Schema({
   },
   studied_at: {
     type: String,
-    require: false
+    require: false,
   },
   works_at: {
     type: String,
-    require: false
+    require: false,
   },
   from: {
     type: String,
-    require: false
+    require: false,
   },
   lives_in: {
     type: String,
-    require: false
+    require: false,
   },
   github: {
     type: String,
-    require: false
+    require: false,
   },
   linkedin: {
     type: String,
-    require: false
+    require: false,
   },
-})
+});
 
 /**
  * Check if password matches the user's password
@@ -68,9 +68,9 @@ const userSchema = mongoose.Schema({
  * @returns {Promise<boolean>}
  */
 userSchema.methods.isPasswordMatch = async function (password) {
-  const user = this
-  return decrypt(password) === decrypt(user.password)
-}
+  const user = this;
+  return decrypt(password) === decrypt(user.password);
+};
 
-const User = mongoose.model("Users", userSchema)
-module.exports = User
+const User = mongoose.model("Users", userSchema);
+module.exports = User;
