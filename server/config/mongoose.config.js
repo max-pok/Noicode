@@ -1,5 +1,5 @@
-const path = require("path")
-require("dotenv").config({ path: path.join(__dirname, "../.env") })
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 module.exports = {
   url: process.env.DB_DEVELOPMENT_URL,
@@ -7,5 +7,6 @@ module.exports = {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   },
-}
+};
